@@ -1,0 +1,143 @@
+/* بدنه و فرم */
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Tahoma', sans-serif;
+    background: #f0f2f5;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* فرم ارسال پیامک */
+.sms-form {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1200px; /* فرم بزرگتر */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    margin: 0 auto;
+}
+
+/* تیتر فرم */
+.sms-form .form-title {
+    text-align: center;
+    font-size: 28px;
+    color: #222;
+    font-weight: 700;
+}
+
+/* گرید فیلدها */
+.sms-form .form-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* یک ستون برای فرم پیامک */
+    gap: 15px;
+}
+
+/* لیبل و ورودی‌ها */
+.sms-form .form-label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+}
+
+.sms-form .form-input {
+    margin-top: 6px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.sms-form .form-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+    outline: none;
+}
+
+/* textarea پیامک */
+.sms-form .form-textarea {
+    resize: none;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.sms-form .form-textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+    outline: none;
+}
+
+/* دکمه‌ها */
+.sms-form .form-btn {
+    min-width: 120px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 12px;
+}
+
+.sms-form .form-btn-primary {
+    background-color: #2563eb;
+    color: white;
+}
+
+.sms-form .form-btn-primary:hover {
+    background-color: #1e4fd1;
+    box-shadow: 0 5px 15px rgba(37,99,235,0.3);
+}
+
+.sms-form .form-btn-outline {
+    background: transparent;
+    color: #2563eb;
+    border: 1px solid #2563eb;
+}
+
+.sms-form .form-btn-outline:hover {
+    background-color: #2563eb;
+    color: white;
+    box-shadow: 0 5px 15px rgba(37,99,235,0.2);
+}
+
+.sms-form .form-select {
+    margin-top: 6px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.sms-form .form-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+    outline: none;
+}
+
+.dropdown-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: nowrap; /* همه در یک ردیف */
+}
+
+.dropdown-row .form-label {
+    flex: 1;
+    min-width: 150px; /* عرض مناسب برای هر دراپ‌داون */
+}

@@ -1,0 +1,141 @@
+body {
+    font-family: 'Tahoma', sans-serif;
+    background: #f0f2f5;
+    padding: 30px;
+}
+
+.history-container {
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.form-title {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 25px;
+    font-weight: 700;
+    color: #222;
+}
+
+.history-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+.form-btn {
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.form-btn-primary {
+    background: #2563eb;
+    color: #fff;
+}
+
+.form-btn-primary:hover {
+    background: #1e4fd1;
+}
+
+.search-input {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    min-width: 200px;
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.history-table th,
+.history-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.history-table th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #333;
+}
+
+.history-table tr:hover {
+    background: #f3f4f6;
+}
+
+.search-box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 250px;
+}
+
+.search-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
+}
+
+/* کانتینر دکمه بازگشت */
+.history-actions {
+    margin-top: 20px; /* فاصله از جدول */
+    text-align: left; /* میتونی center یا right هم بزاری */
+}
+
+/* دکمه بازگشت */
+.btn-back {
+    background-color: #facc15; /* زرد */
+    color: #222;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #eab308; /* زرد تیره‌تر */
+    box-shadow: 0 5px 15px rgba(234, 179, 8, 0.4);
+}
+
+
+.btn-back:hover {
+    background-color: #eab308; /* زرد تیره‌تر */
+    box-shadow: 0 5px 15px rgba(234, 179, 8, 0.4);
+}
+
+/* کانتینر دکمه بازگشت */
+.history-actions {
+    margin-top: 20px; /* فاصله از جدول */
+    text-align: left; /* میتونی center یا right هم بزاری */
+}
+
+
+
+.btn-back:hover {
+    background-color: #eab308; /* زرد تیره‌تر */
+    box-shadow: 0 5px 15px rgba(234, 179, 8, 0.4);
+}

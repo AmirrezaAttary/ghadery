@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    font-family: Tahoma, sans-serif;
+    background: #f5f6fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.dashboard {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 300px;
+}
+
+.dashboard h1 {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    display: block;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    background: #2563eb;
+    color: white;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #1e4fd1;
+}

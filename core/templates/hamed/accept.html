@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <title>فرم پذیرش</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="accept.css">
+</head>
+<body>
+
+<form class="accept-form">
+
+    <h1 class="form-title">فرم پذیرش</h1>
+
+    <!-- اطلاعات پذیرش -->
+    <h2 class="section-title">اطلاعات پذیرش</h2>
+    <div class="form-grid">
+        <label class="form-label">
+            شماره پذیرش
+            <input type="text" name="accept_number" class="form-input" placeholder="مثلاً 12345" required>
+        </label>
+
+        <label class="form-label">
+            تاریخ ورود
+            <input type="date" name="login_date" class="form-input" required>
+        </label>
+
+        <label class="form-label">
+            تاریخ خروج
+            <input type="date" name="exit_date" class="form-input" required>
+        </label>
+    </div>
+
+    <!-- مشخصات دستگاه -->
+    <h2 class="section-title">مشخصات دستگاه</h2>
+    <div class="form-grid">
+        <label class="form-label">
+            نام دستگاه
+            <input type="text" name="device_name" class="form-input" placeholder="مثلاً لپ‌تاپ" required>
+        </label>
+
+        <label class="form-label">
+            نوع دستگاه
+            <input type="text" name="device_type" class="form-input" placeholder="مثلاً الکترونیکی" required>
+        </label>
+
+        <label class="form-label">
+            مدل دستگاه
+            <input type="text" name="device_model" class="form-input" placeholder="مثلاً Dell Precision 7520" required>
+        </label>
+
+        <label class="form-label">
+            سریال دستگاه
+            <input type="text" name="device_serial" class="form-input" placeholder="مثلاً SN123456" required>
+        </label>
+    </div>
+
+    <!-- مشخصات مالک -->
+    <h2 class="section-title">مشخصات مالک</h2>
+    <div class="form-grid">
+        <label class="form-label">
+            نام مالک
+            <input type="text" name="owner_name" class="form-input" placeholder="مثلاً علی رضایی" required>
+        </label>
+
+        <label class="form-label">
+            شماره مالک
+            <input type="tel" name="owner_phone" class="form-input" placeholder="مثلاً 09120000000" required>
+        </label>
+
+        <label class="form-label">
+            کد ملی
+            <input type="text" name="owner_national_id" class="form-input" placeholder="مثلاً 1234567890" required>
+        </label>
+
+        <label class="form-label">
+            تلفن ثابت
+            <input type="tel" name="owner_landline" class="form-input" placeholder="مثلاً 02112345678">
+        </label>
+
+        <label class="form-label" style="grid-column: 1 / -1;">
+            آدرس
+            <textarea name="owner_address" class="form-textarea" rows="2" placeholder="آدرس کامل مالک"></textarea>
+        </label>
+    </div>
+
+    <!-- مشخصات مشکل -->
+    <h2 class="section-title">مشخصات مشکل</h2>
+    <div class="form-grid">
+        <label class="form-label">
+            ایرادهای ظاهری
+            <input type="text" name="physical_issues" class="form-input" placeholder="مثلاً خش روی بدنه">
+        </label>
+
+        <label class="form-label">
+            هزینه
+            <input type="number" name="cost" class="form-input" placeholder="مثلاً 500000">
+        </label>
+
+        <label class="form-label" style="grid-column: 1 / -1;">
+            توضیحات
+            <textarea name="problem_description" class="form-textarea" rows="2" placeholder="توضیحات کامل مشکل"></textarea>
+        </label>
+
+        <div class="form-radio-group" style="grid-column: 1 / -1;">
+            آیا گارانتی دارد؟
+            <label><input type="radio" name="warranty" value="بله"> بله</label>
+            <label><input type="radio" name="warranty" value="خیر"> خیر</label>
+        </div>
+
+        <label class="form-label">
+            مدت گارانتی (ماه)
+            <input type="number" name="warranty_period" class="form-input" placeholder="مثلاً 12">
+        </label>
+
+        <label class="form-label">
+            آماده تحویل
+            <input type="checkbox" name="ready_for_delivery" class="form-checkbox">
+        </label>
+
+        <label class="form-label" style="grid-column: 1 / -1;">
+            نظر تکنسین
+            <textarea name="technician_note" class="form-textarea" rows="2" placeholder="نظر تکنسین"></textarea>
+        </label>
+    </div>
+
+    <!-- دکمه‌ها -->
+    <button type="submit" class="form-btn form-btn-primary" id="save-print-btn">ذخیره و پرینت</button>
+    <button type="button" class="form-btn form-btn-primary" id="save-btn">ذخیره</button>
+    <button type="button" class="form-btn form-btn-outline" id="back-btn">بازگشت</button>
+
+</form>
+
+</body>
+</html>

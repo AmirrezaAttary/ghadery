@@ -1,0 +1,116 @@
+{% load static %}
+<!doctype html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <title>فرم پذیرش</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/accept.css' %}">
+</head>
+<body style="direction: rtl;">
+
+<form method="post" class="accept-form">
+    {% csrf_token %}
+    <h1 class="form-title">فرم پذیرش</h1>
+
+    <!-- اطلاعات پذیرش -->
+
+
+    <!-- مشخصات دستگاه -->
+    <h2 class="section-title">مشخصات دستگاه</h2>
+    <div class="form-grid">
+        <label class="form-label">
+            نام دستگاه
+            {{form.device_name}}
+        </label>
+
+        <label class="form-label">
+            نوع دستگاه
+            {{form.device_type}}
+        </label>
+
+        <label class="form-label">
+            مدل دستگاه
+            {{form.device_model}}
+        </label>
+
+        <label class="form-label">
+            سریال دستگاه
+            {{form.device_serial}}
+        </label>
+    </div>
+
+    <!-- مشخصات مالک -->
+    <h2 class="section-title">مشخصات مالک</h2>
+    <div class="form-grid">
+        <label class="form-label">
+            نام مالک
+            {{form.owner_name}}
+        </label>
+
+        <label class="form-label">
+            شماره مالک
+            {{form.owner_phone}}
+        </label>
+
+        <label class="form-label">
+            کد ملی
+            {{form.owner_national_id}}
+        </label>
+
+        <label class="form-label">
+            تلفن ثابت
+            {{form.owner_landline}}
+        </label>
+
+        <label class="form-label" style="grid-column: 1 / -1;">
+            آدرس
+            {{form.owner_address}}
+        </label>
+    </div>
+
+    <!-- مشخصات مشکل -->
+    <h2 class="section-title">مشخصات مشکل</h2>
+    <div class="form-grid">
+        <label class="form-label" style="grid-column: 1 / -1;">
+            ایرادهای ظاهری
+            {{form.appearance_issue}}
+        </label>
+
+        
+        <label class="form-label" style="grid-column: 1 / -1;">
+            توضیحات
+            {{form.description}}
+        </label>
+
+        <label class="form-label" style="grid-column: 1 / -1;">
+            نظر تکنسین
+            {{form.technician_note}}
+        </label>
+        
+        <label class="form-label" >
+            هزینه
+            {{form.cost}}
+        </label>
+        <div class="form-radio-group" style="grid-column: 1 / -1;">
+            آیا گارانتی دارد؟
+            {{form.has_warranty}}
+        </div>
+
+        <label class="form-label">
+            مدت گارانتی (ماه)
+            {{form.warranty_period}}
+        </label>
+        <input type="hidden" name="created_by" value="{{request.user.id}}">
+
+    </div>
+
+    <!-- دکمه‌ها -->
+    <button type="submit" class="form-btn form-btn-primary" id="save-btn">ذخیره</button>
+    <a href="{% url 'website:home' %}" class="form-btn form-btn-outline" style="text-align: center;" id="back-btn">بازگشت</a>
+    <!-- <button type="button" class="form-btn form-btn-outline" id="back-btn">بازگشت</button> -->
+
+</form>
+
+</body>
+</html>

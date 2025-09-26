@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fa">
+<head>
+    <meta charset="utf-8">
+    <title>ارسال پیامک</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="send_sms.css">
+</head>
+<body>
+
+<form class="sms-form">
+
+    <h1 class="form-title">ارسال پیامک</h1>
+
+    <div class="form-grid">
+        <label class="form-label">
+            شماره همراه
+            <input type="tel" name="phone_number" class="form-input" placeholder="مثلاً 09120000000" required>
+        </label>
+
+        <!-- ردیف دراپ‌داون‌ها -->
+        <div class="dropdown-row">
+            <label class="form-label">
+                تکی ارسال
+                <select name="dropdown1" class="form-select">
+                    <option value="">تکی ارسال</option>
+                </select>
+            </label>
+
+            <label class="form-label">
+                داخل دستگاه
+                <select name="dropdown2" class="form-select">
+                    <option value="">داخل دستگاه</option>
+                </select>
+            </label>
+
+            <label class="form-label">
+                افزوده شده
+                <select name="dropdown3" class="form-select">
+                    <option value="">افزوده شده</option>
+                </select>
+            </label>
+
+            <label class="form-label">
+                شماره ها همه
+                <select name="dropdown4" class="form-select">
+                    <option value="">شماره ها همه</option>
+                </select>
+            </label>
+
+            <label class="form-label">
+                فایل از / دستی افزودن
+                <select name="dropdown5" class="form-select">
+                    <option value="">فایل از / دستی افزودن</option>
+                </select>
+            </label>
+        </div>
+
+        <label class="form-label" style="grid-column: 1 / -1;">
+            پیام
+            <textarea name="message_text" class="form-textarea" rows="4" placeholder="پیام خود را وارد کنید..." required></textarea>
+        </label>
+    </div>
+
+    <!-- دکمه‌ها -->
+    <div style="margin-top: 10px;">
+        <button type="submit" class="form-btn form-btn-primary" id="send-btn">ارسال</button>
+        <button type="button" class="form-btn form-btn-outline" id="back-btn">بازگشت</button>
+    </div>
+
+</form>
+
+
+</body>
+</html>

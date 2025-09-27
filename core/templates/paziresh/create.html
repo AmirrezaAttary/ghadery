@@ -6,6 +6,7 @@
     <title>فرم پذیرش</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/accept.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
 </head>
 <body style="direction: rtl;">
 
@@ -111,6 +112,7 @@
     <!-- <button type="button" class="form-btn form-btn-outline" id="back-btn">بازگشت</button> -->
 
 </form>
-
+  <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
+  {% include 'messages.html' %}
 </body>
 </html>

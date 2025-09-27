@@ -5,11 +5,11 @@ from .models import SMSNumber,PhoneNumber
 
 @admin.register(SMSNumber)
 class SMSAdmin(admin.ModelAdmin):
-    list_display = ('number',)
+    list_display = ('number','id',)
     search_fields = ('number',)
     
     
 @admin.register(PhoneNumber)
 class PhoneNumberAdmin(admin.ModelAdmin):
-    list_display = ('tel',)
+    list_display = ('tel','id')
     search_fields = ('tel',)

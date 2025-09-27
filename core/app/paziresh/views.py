@@ -1,4 +1,5 @@
-from django.views.generic import ListView,CreateView
+from django.views.generic import ListView,CreateView,UpdateView
+from django.contrib.messages.views import SuccessMessageMixin
 from .models import DeviceReception
 from .forms import DeviceReceptionForm
 # Create your views here.
@@ -10,8 +11,19 @@ class PazireshListView(ListView):
     paginate_by = 10
     
     
-class PazireshDetailView(CreateView):
+class PazireshCreateView(SuccessMessageMixin,CreateView):
     template_name = "paziresh/create.html"
     model = DeviceReception
     form_class = DeviceReceptionForm
     success_url = "/paziresh/list/"
+    success_message = "دستگاه با موفقیت پذیریش شد."
+    
+    
+class PazireshUpdateView(SuccessMessageMixin,UpdateView):
+    template_name = "paziresh/update.html"
+    model = DeviceReception
+    form_class = DeviceReceptionForm
+    success_url = "/paziresh/list/"
+    success_message = "دستگاه با موفقیت ویرایش شد."
+    
+    

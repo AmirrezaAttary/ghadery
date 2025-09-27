@@ -6,6 +6,7 @@
     <title>تنظیمات پیامک</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/sms_settings.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
 </head>
 <body>
 
@@ -27,6 +28,7 @@
     </form>
 
 </div>
-
+  <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
+  {% include 'messages.html' %}
 </body>
 </html>

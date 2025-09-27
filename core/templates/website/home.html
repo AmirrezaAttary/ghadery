@@ -1,22 +1,29 @@
 {% load static %}
 <!doctype html>
 <html lang="fa">
+
 <head>
   <meta charset="utf-8">
   <title>داشبورد</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
 </head>
+
 <body>
-<div class="dashboard">
-  <h1>داشبورد</h1>
-  <div class="buttons">
-    <a href="{% url 'paziresh:paziresh-create' %}" class="btn">پذیرش</a>
-    <a href="send_sms.html" class="btn">ارسال پیامک</a>
-    <a href="{% url 'paziresh:paziresh-list' %}" class="btn">تاریخچه</a>
-    <a href="{% url 'website:smsnumber_list' %}" class="btn">تنظیمات اس ام اس</a>
-    <a href="{% url 'website:phonenumber_list' %}" class="btn">شماره ها</a>
+  <div class="dashboard">
+    <h1>داشبورد</h1>
+    <div class="buttons">
+      <a href="{% url 'paziresh:paziresh-create' %}" class="btn">پذیرش</a>
+      <a href="send_sms.html" class="btn">ارسال پیامک</a>
+      <a href="{% url 'paziresh:paziresh-list' %}" class="btn">تاریخچه</a>
+      <a href="{% url 'website:smsnumber_list' %}" class="btn">تنظیمات اس ام اس</a>
+      <a href="{% url 'website:phonenumber_list' %}" class="btn">شماره ها</a>
+    </div>
   </div>
-</div>
+
+  <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
+  {% include 'messages.html' %}
 </body>
+
 </html>

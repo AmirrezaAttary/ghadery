@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{% static 'css/history.css' %}">
   <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
 </head>
-<body>
+<body style="direction: rtl;">
 
 <div class="history-container">
 
@@ -44,7 +44,7 @@
     <tbody>
         {% for object in object_list %}
             <tr>
-                <td>{{ object.id }}</td>
+                <td><a href="{% url 'paziresh:paziresh-update' object.id %}">{{ object.id }}</a></td>
                 <td>{{ object.owner_name }}</td>
                 <td>{{ object.device_name }}</td>
                 <td>{{ object.device_model }}</td>

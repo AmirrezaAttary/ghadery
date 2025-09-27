@@ -1,7 +1,7 @@
 from django.views.generic import ListView,CreateView,UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import DeviceReception
-from .forms import DeviceReceptionForm
+from .forms import DeviceReceptionForm,DeviceUpdateReceptionForm
 # Create your views here.
 
 
@@ -22,7 +22,7 @@ class PazireshCreateView(SuccessMessageMixin,CreateView):
 class PazireshUpdateView(SuccessMessageMixin,UpdateView):
     template_name = "paziresh/update.html"
     model = DeviceReception
-    form_class = DeviceReceptionForm
+    form_class = DeviceUpdateReceptionForm
     success_url = "/paziresh/list/"
     success_message = "دستگاه با موفقیت ویرایش شد."
     

@@ -1,0 +1,57 @@
+{% load static %}
+<!doctype html>
+<html lang="fa">
+
+<head>
+    <meta charset="utf-8">
+    <title>تاریخچه</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/history.css' %}">
+</head>
+
+<body style="direction: rtl;">
+
+    <div class="history-container">
+
+        <h1 class="form-title">تاریخچه</h1>
+
+        <!-- نوار کنترل -->
+        <div class="history-controls">
+            <div class="search-box">
+                <input type="text" id="search-input" class="form-input search-input" placeholder="جستجو...">
+            </div>
+            <div class="btn-group">
+                <a href="{% url 'website:phonenumber_add' %}" class="form-btn form-btn-primary">افزودن شماره</a>
+            </div>
+            <!-- بخش جستجو -->
+        </div>
+
+        <!-- جدول تاریخچه -->
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>شماره</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for object in object_list %}
+                <tr>
+                    <td>{{ object.id }}</td>
+                    <td>{{ object.tel }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- دکمه بازگشت -->
+        <div class="history-actions">
+            <a href="{% url 'website:home' %}" class="form-btn btn-back" style="text-align: center;"
+                id="back-btn">بازگشت</a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 from django.db import models
 from app.accounts.models import User
 from app.accounts.validators import validate_iranian_cellphone_number
+from app.website.models import PhoneNumber
 
 
 class DeviceReception(models.Model):
@@ -66,3 +67,5 @@ class DeviceReception(models.Model):
     
     class Meta:
         ordering = ['-id']
+
+

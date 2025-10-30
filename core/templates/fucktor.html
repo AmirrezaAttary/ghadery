@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فاکتور</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    .box {
+      width: 100%;
+      background-color: #ffffff;
+      border: 2px solid #111827;
+      border-radius: 8px;
+      margin-bottom: 5px; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 10px 15px;
+      box-sizing: border-box;
+    }
+
+    .box.title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 120px;
+    }
+
+    .box.title h1 {
+      font-size: 20px;
+      color: #111827;
+      margin: 2px 0;
+    }
+
+    .info-section {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 180px;
+      padding: 3px 8px;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #111827;
+      margin-top: 5px;
+    }
+
+    .subtext {
+      color: #000000;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .subtext2 {
+      color: #000000;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .contact-section {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      text-align: right;
+    }
+
+    .contact-column {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact-label {
+      font-weight: bold;
+      color: #111827;
+      font-size: 13px;
+    }
+
+    .corner-box {
+      width: 220px;
+      height: 120px;
+      border: 2px solid #111827;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px;
+      box-sizing: border-box;
+      background-color: #f9fafb;
+    }
+
+    .corner-top {
+      font-weight: bold;
+      text-align: center;
+      font-size: 14px;
+      color: #111827;
+    }
+
+    .corner-bottom {
+      font-size: 12px;
+      text-align: center;
+      color: #374151;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    /* تنظیم چاپ روی A5 افقی */
+    @page {
+      size: A5 landscape;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+      }
+
+      .box {
+        box-shadow: none;
+        border-width: 1px;
+      }
+
+      /* مقیاس محتوا برای جا شدن در یک صفحه */
+      body {
+        zoom: 0.78; /* اگر هنوز دو صفحه شد، این عدد را کمتر کنید */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- محتوای اصلی شما بدون تغییر -->
+  <div class="box title">
+    <h1>خدمات صوت و تصویر</h1>
+    <h1>بهروز الکترونیک</h1>
+  </div>
+
+  <div class="box">
+    <div class="info-section">
+      <div class="column">
+        <div class="label">شماره قبض پذیرش:</div>
+        <div class="subtext2">قبض پذیرش استاندارد تعمیرگاه سرویس داخلی مؤسسه</div>
+      </div>
+      <div class="column">
+        <div class="label">تاریخ پذیرش:</div>
+        <div class="label">ساعت پذیرش:</div>
+        <div class="subtext">کالا دارای ۱۲ ماه گارانتی می‌باشد</div>
+        <div class="label">صاحب دستگاه:</div>
+      </div>
+      <div class="column">
+        <div class="label">نام دستگاه:</div>
+        <div class="label">نوع:</div>
+        <div class="label">مدل:</div>
+        <div class="label">شماره سریال:</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="contact-section">
+      <div class="contact-column">
+        <div class="contact-label">شماره تماس:</div>
+        <div class="contact-label">استان:</div>
+      </div>
+      <div class="contact-column">
+        <div class="contact-label">آدرس:</div>
+        <div class="contact-label">شهرستان:</div>
+      </div>
+      <div class="contact-column">
+        <div class="contact-label">نوع پذیرش:</div>
+      </div>
+      <div class="contact-column">
+        <div class="contact-label">نوع تحویل:</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box" style="padding: 15px; display: flex; flex-direction: column; gap: 15px; align-items: flex-start;">
+    <div style="display: flex; gap: 15px; width: 100%;">
+        <div style="flex: 0 0 220px; display: flex; justify-content: center; align-items: flex-start;">
+          <div class="corner-box">
+            <div class="corner-top">عیب به اظهار مشتری</div>
+            <div class="corner-bottom">بکلایت شامل گارانتی نمی‌باشد</div>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+          <h3>لطفا به نکات زیر توجه فرماید</h3>
+          <div>ارائه‌ای رسید به مراجعه و تحویل دستگاه ضروری است</div>
+          <div>ارائه کنند ای رسید به عنوان صاحب دستگاه شناخته می‌شود</div>
+          <div>رسیدهای فاقد مهر و امضا از درج اعتبار خارج است</div>
+          <div>در صورت تحویل دستگاه به صورت پنل خاموش، شرکت هیچ گونه مسئولیتی نسبت به سلامت دستگاه ندارد</div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 10px; font-size: 13px;background-color: #ffffff;">
+          <div>مدت اعتبار این قبض دو ماه می‌باشد، بعد از انقضا این شرکت هیچ‌گونه مسئولیتی در قبال دستگاه ندارد.</div>
+          <div>در صورت عدم وجود قطعات یدکی، این شرکت هیچ‌گونه مسئولیتی در قبال دستگاه ندارد.</div>
+          <div style="margin-top: 30px; font-weight: bold; text-align: center; font-size: 15px;">
+            امضا پذیرش &nbsp;&nbsp; [مهر مؤسسه] &nbsp;&nbsp; امضا مشتری
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; width: 100%; font-size: 13px; margin-top: 5px;">
+        <div>سبزوار، خیابان طالقانی، نبش طالقانی ۸</div>
+        <div>شماره‌های تماس - 09151500816</div>
+  </div>
+</body>
+</html>

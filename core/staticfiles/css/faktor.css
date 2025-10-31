@@ -1,0 +1,163 @@
+body {
+    font-family: Tahoma, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.box {
+    width: 100%;
+    background-color: #ffffff;
+    border: 2px solid #111827;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+    box-sizing: border-box;
+}
+
+.box.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 120px;
+}
+
+.box.title h1 {
+    font-size: 20px;
+    color: #111827;
+    margin: 2px 0;
+}
+
+.info-section {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.column {
+    flex: 1;
+    min-width: 180px;
+    padding: 3px 8px;
+}
+
+.label {
+    font-weight: bold;
+    color: #111827;
+    margin-top: 5px;
+}
+
+.subtext {
+    color: #000000;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.subtext2 {
+    color: #000000;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.contact-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    text-align: right;
+}
+
+.contact-column {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.contact-label {
+    font-weight: bold;
+    color: #111827;
+    font-size: 13px;
+}
+
+.corner-box {
+    width: 220px;
+    height: 120px;
+    border: 2px solid #111827;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f9fafb;
+}
+
+.corner-top {
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+    color: #111827;
+}
+
+.corner-bottom {
+    font-size: 12px;
+    text-align: center;
+    color: #374151;
+}
+
+h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* تنظیم چاپ روی A5 افقی */
+/* سایز صفحه A5 افقی */
+@page {
+    size: A5 landscape;
+    margin: 5mm;
+}
+
+/* برای چاپ */
+@media print {
+
+    html, body {
+        width: 210mm;
+        height: 148mm;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+        overflow: hidden;
+    }
+
+    .box {
+        box-shadow: none;
+        border-width: 1px;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .info-section,
+    .contact-section {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 4px;
+    }
+
+    .column, 
+    .contact-column {
+        min-width: 120px;
+        max-width: 100%;
+        flex: 1;
+    }
+
+    /* مقیاس نهایی (اگر باز هم جا نشد عدد کمتر کن) */
+    body {
+        transform: scale(0.92);
+        transform-origin: top center;
+    }
+}

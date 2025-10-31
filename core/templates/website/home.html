@@ -14,11 +14,15 @@
   <div class="dashboard">
     <h1>داشبورد</h1>
     <div class="buttons">
+      {% if user.is_superuser %}
+      <a href="/admin/" class="btn">ادمین کلی</a>
+      {% endif %}
       <a href="{% url 'paziresh:paziresh-create' %}" class="btn">پذیرش</a>
       <a href="send_sms.html" class="btn">ارسال پیامک</a>
       <a href="{% url 'paziresh:paziresh-list' %}" class="btn">تاریخچه</a>
       <a href="{% url 'website:smsnumber_list' %}" class="btn">تنظیمات اس ام اس</a>
       <a href="{% url 'website:phonenumber_list' %}" class="btn">شماره ها</a>
+      <a href="{% url 'accounts:logout' %}" class="btn">خروج از سیستم</a>
     </div>
   </div>
 

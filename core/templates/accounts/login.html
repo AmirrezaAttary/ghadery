@@ -1,0 +1,74 @@
+{% load static %}
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ورود</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
+</head>
+<body>
+  <main class="container" role="main">
+
+    <section class="promo" aria-hidden="false">
+      <div class="brand">
+        <div class="logo">MM</div>
+        <div>
+          <div style="font-weight:700;color:#0f172a;">بهروز الکترونیک</div>
+          <div class="helper">پنل پذیرش تعمیرات — سریع، امن و قابل اتکا</div>
+        </div>
+      </div>
+
+      <h1>خوش آمدید!</h1>
+      <p class="lead">برای دسترسی به سامانه لطفاً وارد شوید. اگر حساب کاربری ندارید، با مدیر سیستم تماس بگیرید.</p>
+
+      <div style="margin-top:auto;display:flex;gap:12px;align-items:center">
+        <div style="font-size:13px;color:var(--muted)">پیشنهاد:</div>
+        <!-- <a class="muted-link" href="#">راهنمای ورود</a> -->
+        <a class="muted-link" href="tel:+989151500816">تماس پشتیبانی(اولویت)</a>
+        <a class="muted-link" href="tel:+989159526624">تماس پشتیبانی</a>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="login-title">
+      <h2 id="login-title" style="margin:0 0 6px 0;font-size:20px;color:#0f172a">ورود به پنل</h2>
+      <p class="helper" style="margin-top:0">نام کاربری یا ایمیل و رمز عبور خود را وارد کنید.</p>
+
+      <form id="loginForm" method="post" action="." novalidate>
+        {% csrf_token %}
+        <div class="field">
+          <label for="username">شماره موبایل</label>
+          <input id="username" name="username" type="text" placeholder="مثال: 0915000000" autocomplete="username" />
+          <div id="usernameError" class="error-text" aria-live="polite" style="display:none"></div>
+        </div>
+
+        <div class="field">
+          <label for="password">رمز عبور</label>
+          <div style="position:relative;display:flex;align-items:center">
+            <input id="password" name="password" type="password" placeholder="رمز عبور" autocomplete="current-password" style="flex:1" />
+            <button type="button" id="togglePwd" aria-label="نمایش رمز" style="position:absolute;left:8px;border:none;background:transparent;cursor:pointer">👁️</button>
+          </div>
+          <div id="passwordError" class="error-text" aria-live="polite" style="display:none"></div>
+        </div>
+
+        <div class="row" style="justify-content:space-between">
+          <label class="checkbox"><input id="remember" name="remember" type="checkbox" /> مرا به خاطر بسپار</label>
+          <a class="muted-link" href="#">فراموشی رمز؟</a>
+        </div>
+
+        <div>
+          <button type="submit" class="btn-primary" id="submitBtn" style="width: 50%;">ورود</button>
+          <div class="small">با ورود شما قوانین و حریم خصوصی را قبول می‌کنید.</div>
+        </div>
+      </form>
+    </section>
+
+
+  </main>
+    <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
+    {% include 'messages.html' %}
+
+</body>
+</html>

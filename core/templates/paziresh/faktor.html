@@ -1,0 +1,94 @@
+{% load static %}
+{% load jalali_tags %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فاکتور</title>
+  <link rel="stylesheet" href="{% static 'css/faktor.css' %}">
+
+</head>
+<body>
+    <br>
+  <!-- محتوای اصلی شما بدون تغییر -->
+  <div class="box title">
+    <h1>خدمات صوت و تصویر</h1>
+    <h1>بهروز الکترونیک</h1>
+  </div>
+
+  <div class="box">
+    <div class="info-section">
+      <div class="column">
+        <div class="label">شماره قبض پذیرش: {{object.id}}-{{object.entry_date|date:"Ymd"}}</div>
+        <div class="subtext2">قبض پذیرش استاندارد تعمیرگاه سرویس داخلی مؤسسه</div>
+      </div>
+      <div class="column">
+        <div class="label">تاریخ پذیرش:{{object.entry_date|to_jalali:"%Y/%m/%d"}}</div>
+        <div class="label">ساعت پذیرش: {{ object.entry_date|to_jalali:"%H:%M" }}</div>
+        {% if object.has_warranty %}
+        <div class="subtext">کالا دارای {{object.warranty_period}} ماه گارانتی می‌باشد</div>
+        {% endif %}
+        <div class="label">صاحب دستگاه: {{object.owner_name}}</div>
+      </div>
+      <div class="column">
+        <div class="label">نام دستگاه : {{object.device_name}}</div>
+        <div class="label">نوع : {{object.device_type}}</div>
+        <div class="label">مدل : {{object.device_model}}</div>
+        <div class="label">شماره سریال : {{object.device_serial}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="contact-section">
+      <div class="contact-column">
+        <div class="contact-label">شماره تماس : {{object.owner_phone}}</div>
+        <div class="contact-label">کد ملی : {{object.owner_national_id}}</div>
+      </div>
+      <div class="contact-column">
+          <div class="contact-label">تلفن ثابت : {{object.owner_landline}}</div>
+        <div class="contact-label">آدرس : {{object.owner_address|truncatechars:18}}</div>
+      </div>
+      <div class="contact-column">
+        <div class="contact-label">نوع پذیرش : حضوری</div>
+      </div>
+      <div class="contact-column">
+        <div class="contact-label">نوع تحویل : حضوری</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box" style="padding: 15px; display: flex; flex-direction: column; gap: 15px; align-items: flex-start;">
+    <div style="display: flex; gap: 15px; width: 100%;">
+        <div style="flex: 0 0 220px; display: flex; justify-content: center; align-items: flex-start;">
+          <div class="corner-box">
+            <div class="corner-top">عیب به اظهار مشتری</div>
+            <div class="corner-bottom">{{object.appearance_issue}}</div>
+          </div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+          <h3>لطفا به نکات زیر توجه فرماید</h3>
+          <div style="font-size: 12px;">ارائه‌ای رسید به مراجعه و تحویل دستگاه ضروری است</div>
+          <div style="font-size: 12px;">ارائه کنند ای رسید به عنوان صاحب دستگاه شناخته می‌شود</div>
+          <div style="font-size: 12px;">رسیدهای فاقد مهر و امضا از درج اعتبار خارج است</div>
+          <div style="font-size: 12px;">در صورت تحویل دستگاه به صورت پنل خاموش، شرکت هیچ گونه مسئولیتی نسبت به سلامت دستگاه ندارد</div>
+        </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 10px; font-size: 13px;background-color: #ffffff;">
+          <div>مدت اعتبار این قبض دو ماه می‌باشد، بعد از انقضا این شرکت هیچ‌گونه مسئولیتی در قبال دستگاه ندارد.</div>
+          <div>در صورت عدم وجود قطعات یدکی، این شرکت هیچ‌گونه مسئولیتی در قبال دستگاه ندارد.</div>
+          <div style="margin-top: 30px; font-weight: bold; text-align: center; font-size: 15px;">
+            امضا پذیرش &nbsp;&nbsp; [مهر مؤسسه] &nbsp;&nbsp; امضا مشتری
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; width: 100%; font-size: 13px; margin-top: 5px;">
+        <div>سبزوار، خیابان طالقانی، نبش طالقانی ۸</div>
+        <div>شماره‌های تماس - 09151500816</div>
+  </div>
+</body>
+</html>

@@ -25,7 +25,8 @@
     <!-- بخش جستجو -->
     <div class="search-box">
       <label for="search-input" class="search-label">بر اساس شماره موبایل / کدملی:</label>
-      <input type="text" id="search-input" class="form-input search-input" placeholder="جستجو...">
+      <input type="text" form="search" name="q" id="search-input" class="form-input search-input" placeholder="جستجو...">
+      <form id="search" action="."></form>
     </div>
   </div>
 
@@ -34,22 +35,30 @@
     <thead>
     <tr>
       <th>شماره پذیرش</th>
+      <th>فاکتور</th>
       <th>مالک دستگاه</th>
       <th>نام دستگاه</th>
       <th>مدل دستگاه</th>
       <th>کدملی</th>
       <th>موبایل</th>
+      <th>وضعیت</th>
     </tr>
     </thead>
     <tbody>
         {% for object in object_list %}
             <tr>
-                <td><a href="{% url 'paziresh:paziresh-update' object.id %}">{{ object.id }}</a></td>
+                <td><a href="{% url 'paziresh:paziresh-update' object.id %}">{{ object.id }}--ویرایش</a></td>
+                <td><a href="{% url 'paziresh:paziresh-faktor' object.id %}">مشاهده</a></td>
                 <td>{{ object.owner_name }}</td>
                 <td>{{ object.device_name }}</td>
                 <td>{{ object.device_model }}</td>
                 <td>{{ object.owner_national_id }}</td>
                 <td>{{ object.owner_phone }}</td>
+                {% if object.is_ready %}
+                <td>آماده تحویل</td>
+                {% else %}
+                <td>در حال تعمیر</td>
+                {% endif %}
             </tr>
         {% endfor %}
     </tbody>

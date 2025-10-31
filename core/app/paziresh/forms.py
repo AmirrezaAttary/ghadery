@@ -26,6 +26,24 @@ class DeviceReceptionForm(forms.ModelForm):
             "warranty_period",
             "created_by",
         ]
+        labels = {
+            "device_name": "نام دستگاه",
+            "device_type": "نوع دستگاه",
+            "device_model": "مدل دستگاه",
+            "device_serial": "سریال دستگاه",
+            "owner_name": "نام مالک",
+            "owner_phone": "شماره تماس",
+            "owner_national_id": "کد ملی",
+            "owner_landline": "تلفن ثابت",
+            "owner_address": "آدرس",
+            "appearance_issue": "ایراد ظاهری",
+            "description": "توضیحات",
+            "technician_note": "نظر تکنسین",
+            "cost": "هزینه",
+            "has_warranty": "گارانتی",
+            "warranty_period": "مدت گارانتی (ماه)",
+            "created_by": "ثبت شده توسط",
+        }
         widgets = {
             "exit_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),
             "owner_address": forms.Textarea(attrs={"rows": 3}),

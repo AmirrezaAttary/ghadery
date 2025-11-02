@@ -17,6 +17,7 @@ class PazireshListView(LoginRequiredMixin,ListView):
 
         if search_q:
             queryset = queryset.filter(
+                Q(id__icontains=search_q) |
                 Q(device_name__icontains=search_q) |
                 Q(owner_name__icontains=search_q) |
                 Q(owner_phone__icontains=search_q) |

@@ -1,6 +1,7 @@
 {% load static %}
 <!doctype html>
 <html lang="fa">
+
 <head>
     <meta charset="utf-8">
     <title>تنظیمات پیامک</title>
@@ -8,27 +9,31 @@
     <link rel="stylesheet" href="{% static 'css/sms_settings.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
 </head>
+
 <body>
 
-<div class="settings-container">
+    <div class="settings-container">
 
-    <h1 class="form-title">تنظیمات پیامک</h1>
+        <h1 class="form-title">تنظیمات پیامک</h1>
 
-    <form method="post" class="settings-form">
-        {% csrf_token %}
-        <label class="form-label">
-            شماره همراه
-            <input type="tel" name="number" class="form-input" placeholder="مثلاً 09120000000" required>
-        </label>
+        <form method="post" class="settings-form">
+            {% csrf_token %}
+            <label class="form-label">
+                شماره همراه
+                <input type="tel" name="number" class="form-input" placeholder="مثلاً 09120000000" required>
+            </label>
 
-        <div class="settings-actions">
-            <button type="submit" class="form-btn form-btn-primary">ذخیره شماره</button>
-            <button type="button" class="form-btn btn-back">بازگشت</button>
-        </div>
-    </form>
+            <div class="settings-actions">
+                <button type="submit" class="form-btn form-btn-primary">ذخیره شماره</button>
+                <a href="{% url 'website:smsnumber_list' %}">
+                    <button type="button" class="form-btn btn-back">بازگشت</button>
+                </a>
+            </div>
+        </form>
 
-</div>
-  <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
-  {% include 'messages.html' %}
+    </div>
+    <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
+    {% include 'messages.html' %}
 </body>
+
 </html>

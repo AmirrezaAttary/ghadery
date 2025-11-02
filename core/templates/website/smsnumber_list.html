@@ -19,7 +19,8 @@
         <!-- نوار کنترل -->
         <div class="history-controls">
             <div class="search-box">
-                <input type="text" id="search-input" class="form-input search-input" placeholder="جستجو...">
+                <input type="text" name="q" form="search_form" id="search-input" class="form-input search-input" placeholder="جستجو...">
+                <form action="." id="search_form"></form>
             </div>
             <div class="btn-group">
                 <a href="{% url 'website:smsnumber_add' %}" class="form-btn form-btn-primary">افزودن شماره</a>

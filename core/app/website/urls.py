@@ -9,4 +9,5 @@ urlpatterns = [
     path('smsnumbers/add/', views.SMSNumberCreateView.as_view(), name='smsnumber_add'),
     path('phonenumbers/', views.PhoneNumberListView.as_view(), name='phonenumber_list'),
     path('phonenumbers/add/', views.PhoneNumberCreateView.as_view(), name='phonenumber_add'),
+    path("export-vcf/", views.ExportVCardView.as_view(), name="export_vcf"),
 ]

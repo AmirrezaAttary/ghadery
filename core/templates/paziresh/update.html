@@ -1,4 +1,5 @@
 {% load static %}
+{% load jalali_tags %}
 <!doctype html>
 <html lang="fa">
 
@@ -27,8 +28,8 @@
 
             <label class="form-label">
                 تاریخ ورود
-                <input type="date" name="login_date" class="form-input" required disabled
-                    value="{{object.entry_date|date:'Y-m-d'}}">
+                <input type="text" name="login_date" class="form-input" required disabled
+                    value="{{object.entry_date|to_jalali:"%Y/%m/%d"}}">
             </label>
 
             <label class="form-label">
@@ -126,7 +127,7 @@
 
             <label class="form-label">
                 آماده تحویل
-                <input type="checkbox" name="is_ready " class="form-checkbox">
+                {{form.is_ready}}
             </label>
             <input type="hidden" name="created_by" value="{{request.user.id}}">
 

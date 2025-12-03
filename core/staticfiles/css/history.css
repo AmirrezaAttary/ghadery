@@ -60,6 +60,17 @@ body {
     border: 1px solid #ccc;
     min-width: 200px;
 }
+.search__btn {
+    background-color: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
 .history-table {
     width: 100%;
@@ -86,7 +97,7 @@ body {
 
 .search-box {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 5px;
     min-width: 250px;
 }
@@ -139,3 +150,4 @@ body {
     background-color: #eab308; /* زرد تیره‌تر */
     box-shadow: 0 5px 15px rgba(234, 179, 8, 0.4);
 }
+

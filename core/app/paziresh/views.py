@@ -10,7 +10,7 @@ from .forms import DeviceReceptionForm,DeviceUpdateReceptionForm
 class PazireshListView(LoginRequiredMixin,ListView):
     template_name = "paziresh/list.html"
     model = DeviceReception
-    paginate_by = 10
+    paginate_by = 20
     def get_queryset(self):
         queryset = DeviceReception.objects.all()
         search_q = self.request.GET.get('q')
@@ -23,7 +23,9 @@ class PazireshListView(LoginRequiredMixin,ListView):
                 Q(owner_phone__icontains=search_q) |
                 Q(owner_national_id__icontains=search_q)
             )
-
+        if self.request.GET.get('is_ready') in ['true', 'false']:
+            is_ready = self.request.GET.get('is_ready') == 'true'
+            queryset =queryset.filter(is_ready=is_ready)
         return queryset
     
     

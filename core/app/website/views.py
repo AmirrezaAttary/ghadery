@@ -22,6 +22,7 @@ class SMSNumberCreateView(LoginRequiredMixin,SuccessMessageMixin,CreateView):
 class SMSNumberListView(ListView):
     model = SMSNumber
     template_name = "website/smsnumber_list.html"
+    paginate_by = 10
     
     def get_queryset(self):
         queryset = SMSNumber.objects.all()
@@ -45,6 +46,7 @@ class PhoneNumberCreateView(LoginRequiredMixin,SuccessMessageMixin,CreateView):
 class PhoneNumberListView(LoginRequiredMixin,ListView):
     model = PhoneNumber
     template_name = "website/phonenumber_list.html"
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = PhoneNumber.objects.all()

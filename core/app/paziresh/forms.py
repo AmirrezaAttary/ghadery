@@ -25,6 +25,9 @@ class DeviceReceptionForm(forms.ModelForm):
             "has_warranty",
             "warranty_period",
             "created_by",
+            # new fields
+            "reception_type",
+            "delivery_type",
         ]
         labels = {
             "device_name": "نام دستگاه",
@@ -43,6 +46,8 @@ class DeviceReceptionForm(forms.ModelForm):
             "has_warranty": "گارانتی",
             "warranty_period": "مدت گارانتی (ماه)",
             "created_by": "ثبت شده توسط",
+            "reception_type": "نوع پذیرش",
+            "delivery_type": "نوع تحویل",
         }
         widgets = {
             "exit_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),
@@ -50,31 +55,27 @@ class DeviceReceptionForm(forms.ModelForm):
             "appearance_issue": forms.Textarea(attrs={"rows": 3}),
             "description": forms.Textarea(attrs={"rows": 3}),
             "technician_note": forms.Textarea(attrs={"rows": 3}),
+            "reception_type": forms.RadioSelect,
+            "delivery_type": forms.RadioSelect,
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # device information
-        self.fields['device_name'].widget.attrs['class'] = 'form-input'
-        self.fields['device_type'].widget.attrs['class'] = 'form-input'
-        self.fields['device_model'].widget.attrs['class'] = 'form-input'
-        self.fields['device_serial'].widget.attrs['class'] = 'form-input'
+        for field in ['device_name', 'device_type', 'device_model', 'device_serial']:
+            self.fields[field].widget.attrs['class'] = 'form-input'
         # reception information
-        self.fields['owner_name'].widget.attrs['class'] = 'form-input'
-        self.fields['owner_phone'].widget.attrs['class'] = 'form-input'
-        self.fields['owner_national_id'].widget.attrs['class'] = 'form-input'
-        self.fields['owner_landline'].widget.attrs['class'] = 'form-input'
-        self.fields['owner_address'].widget.attrs['class'] = 'form-input'
+        for field in ['owner_name', 'owner_phone', 'owner_national_id', 'owner_landline', 'owner_address']:
+            self.fields[field].widget.attrs['class'] = 'form-input'
         # other information
-        self.fields['appearance_issue'].widget.attrs['class'] = 'form-input'
-        self.fields['description'].widget.attrs['class'] = 'form-input'
-        self.fields['technician_note'].widget.attrs['class'] = 'form-input'
-        self.fields['cost'].widget.attrs['class'] = 'form-input'
+        for field in ['appearance_issue', 'description', 'technician_note', 'cost', 'warranty_period', 'created_by']:
+            self.fields[field].widget.attrs['class'] = 'form-input'
         self.fields['has_warranty'].widget.attrs['class'] = 'form-checkbox'
-        self.fields['warranty_period'].widget.attrs['class'] = 'form-input'
-        self.fields['created_by'].widget.attrs['class'] = 'form-input'
-        
-        
+        # new fields
+        self.fields['reception_type'].widget.attrs['class'] = 'form-radio'
+        self.fields['delivery_type'].widget.attrs['class'] = 'form-radio'
+
+
 class DeviceUpdateReceptionForm(forms.ModelForm):
     class Meta:
         model = DeviceReception
@@ -99,6 +100,9 @@ class DeviceUpdateReceptionForm(forms.ModelForm):
             "cost",
             "has_warranty",
             "warranty_period",
+            # new fields
+            "reception_type",
+            "delivery_type",
         ]
         widgets = {
             "exit_date": forms.DateTimeInput(attrs={"type": "datetime-local"}),
@@ -106,27 +110,24 @@ class DeviceUpdateReceptionForm(forms.ModelForm):
             "appearance_issue": forms.Textarea(attrs={"rows": 3}),
             "description": forms.Textarea(attrs={"rows": 3}),
             "technician_note": forms.Textarea(attrs={"rows": 3}),
+            "reception_type": forms.RadioSelect,
+            "delivery_type": forms.RadioSelect,
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # device information
-        self.fields['device_name'].widget.attrs['class'] = 'form-input'
-        self.fields['device_type'].widget.attrs['class'] = 'form-input'
-        self.fields['device_model'].widget.attrs['class'] = 'form-input'
-        self.fields['device_serial'].widget.attrs['class'] = 'form-input'
+        for field in ['device_name', 'device_type', 'device_model', 'device_serial']:
+            self.fields[field].widget.attrs['class'] = 'form-input'
         # reception information
-        self.fields['owner_name'].widget.attrs['class'] = 'form-input'
-        self.fields['owner_phone'].widget.attrs['class'] = 'form-input'
-        self.fields['owner_national_id'].widget.attrs['class'] = 'form-input'
-        self.fields['owner_landline'].widget.attrs['class'] = 'form-input'
-        self.fields['owner_address'].widget.attrs['class'] = 'form-input'
+        for field in ['owner_name', 'owner_phone', 'owner_national_id', 'owner_landline', 'owner_address']:
+            self.fields[field].widget.attrs['class'] = 'form-input'
         # other information
-        self.fields['appearance_issue'].widget.attrs['class'] = 'form-input'
-        self.fields['description'].widget.attrs['class'] = 'form-input'
-        self.fields['technician_note'].widget.attrs['class'] = 'form-input'
-        self.fields['cost'].widget.attrs['class'] = 'form-input'
+        for field in ['appearance_issue', 'description', 'technician_note', 'cost', 'warranty_period']:
+            self.fields[field].widget.attrs['class'] = 'form-input'
         self.fields['has_warranty'].widget.attrs['class'] = 'form-checkbox'
-        self.fields['warranty_period'].widget.attrs['class'] = 'form-input'
         self.fields['exit_date'].widget.attrs['class'] = 'form-input'
         self.fields['is_ready'].widget.attrs['class'] = 'form-checkbox'
+        # new fields
+        self.fields['reception_type'].widget.attrs['class'] = 'form-radio'
+        self.fields['delivery_type'].widget.attrs['class'] = 'form-radio'

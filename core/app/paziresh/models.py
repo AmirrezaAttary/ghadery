@@ -52,6 +52,23 @@ class DeviceReception(models.Model):
 
     is_ready = models.BooleanField(default=False, verbose_name="آیا آماده تحویل است؟")
 
+    # ---------------- نوع پذیرش و تحویل ----------------
+    RECEPTION_TYPES = [
+        ("in_person", "حضوری"),
+        ("online", "آنلاین"),
+    ]
+    DELIVERY_TYPES = [
+        ("in_person", "حضوری"),
+        ("online", "آنلاین"),
+    ]
+
+    reception_type = models.CharField(
+        max_length=20, choices=RECEPTION_TYPES, default="in_person", verbose_name="نوع پذیرش"
+    )
+    delivery_type = models.CharField(
+        max_length=20, choices=DELIVERY_TYPES, default="in_person", verbose_name="نوع تحویل"
+    )
+
     # ---------------- کاربر پذیرش کننده ----------------
     created_by = models.ForeignKey(
         User,
@@ -67,5 +84,3 @@ class DeviceReception(models.Model):
     
     class Meta:
         ordering = ['-id']
-
-

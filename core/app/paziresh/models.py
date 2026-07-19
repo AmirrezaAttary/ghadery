@@ -55,11 +55,11 @@ class DeviceReception(models.Model):
     # ---------------- نوع پذیرش و تحویل ----------------
     RECEPTION_TYPES = [
         ("in_person", "حضوری"),
-        ("online", "آنلاین"),
+        ("online", "پیک رسان"),
     ]
     DELIVERY_TYPES = [
         ("in_person", "حضوری"),
-        ("online", "آنلاین"),
+        ("online", "پیک رسان"),
     ]
 
     reception_type = models.CharField(

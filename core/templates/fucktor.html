@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>فاکتور</title>
+  <title>فاکتور پذیرش - {{ object.owner_name }}</title>
   <style>
     body {
       font-family: Tahoma, sans-serif;
@@ -92,6 +92,7 @@
       font-size: 13px;
     }
 
+    /* استایل باکس‌های مربعی پایین */
     .corner-box {
       width: 220px;
       height: 120px;
@@ -115,6 +116,7 @@
       font-size: 12px;
       text-align: center;
       color: #374151;
+      word-wrap: break-word;
     }
 
     h3 {
@@ -122,35 +124,20 @@
       font-size: 14px;
     }
 
-    /* تنظیم چاپ روی A5 افقی */
     @page {
       size: A5 landscape;
       margin: 0;
     }
 
     @media print {
-      body {
-        width: 100%;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-        box-shadow: none;
-      }
-
-      .box {
-        box-shadow: none;
-        border-width: 1px;
-      }
-
-      /* مقیاس محتوا برای جا شدن در یک صفحه */
-      body {
-        zoom: 0.78; /* اگر هنوز دو صفحه شد، این عدد را کمتر کنید */
-      }
+      body { width: 100%; height: 100%; padding: 0; margin: 0; box-shadow: none; }
+      .box { box-shadow: none; border-width: 1px; }
+      body { zoom: 0.78; }
     }
   </style>
 </head>
 <body style="padding-top: 0.5px;">
-  <!-- محتوای اصلی شما بدون تغییر -->
+
   <div class="box title">
     <h1>خدمات صوت و تصویر</h1>
     <h1>حامی سرویس</h1>
@@ -159,20 +146,22 @@
   <div class="box">
     <div class="info-section">
       <div class="column">
-        <div class="label">شماره قبض پذیرش:</div>
+        <div class="label">شماره قبض پذیرش: {{ object.id }}</div>
         <div class="subtext2">قبض پذیرش استاندارد تعمیرگاه سرویس داخلی مؤسسه</div>
       </div>
       <div class="column">
-        <div class="label">تاریخ پذیرش:</div>
-        <div class="label">ساعت پذیرش:</div>
-        <div class="subtext">کالا دارای ۱۲ ماه گارانتی می‌باشد</div>
-        <div class="label">صاحب دستگاه:</div>
+        <div class="label">تاریخ پذیرش: {{ object.entry_date|date:"Y/m/d" }}</div>
+        <div class="label">ساعت پذیرش: {{ object.entry_date|date:"H:i" }}</div>
+        {% if object.has_warranty %}
+            <div class="subtext" style="color:red; font-weight:bold;">کالا دارای {{ object.warranty_period }} گارانتی می‌باشد</div>
+        {% endif %}
+        <div class="label">صاحب دستگاه: {{ object.owner_name }}</div>
       </div>
       <div class="column">
-        <div class="label">نام دستگاه:</div>
-        <div class="label">نوع:</div>
-        <div class="label">مدل:</div>
-        <div class="label">شماره سریال:</div>
+        <div class="label">نام دستگاه: {{ object.device_name }}</div>
+        <div class="label">نوع: {{ object.get_device_type_display }}</div>
+        <div class="label">مدل: {{ object.device_model }}</div>
+        <div class="label">شماره سریال: {{ object.device_serial }}</div>
       </div>
     </div>
   </div>
@@ -180,40 +169,51 @@
   <div class="box">
     <div class="contact-section">
       <div class="contact-column">
-        <div class="contact-label">شماره تماس:</div>
-        <div class="contact-label">استان:</div>
+        <div class="contact-label">شماره تماس: {{ object.owner_phone }}</div>
       </div>
       <div class="contact-column">
-        <div class="contact-label">آدرس:</div>
-        <div class="contact-label">شهرستان:</div>
+        <div class="contact-label">آدرس: {{ object.owner_address }}</div>
       </div>
       <div class="contact-column">
-        <div class="contact-label">نوع پذیرش:</div>
+        <div class="contact-label">نوع پذیرش: {{ object.get_reception_type_display }}</div>
       </div>
       <div class="contact-column">
-        <div class="contact-label">نوع تحویل:</div>
+        <div class="contact-label">نوع تحویل: {{ object.get_delivery_type_display }}</div>
       </div>
     </div>
   </div>
 
-  <div class="box" style="padding: 15px; display: flex; flex-direction: column; gap: 15px; align-items: flex-start;">
+  <!-- بخش باکس‌های پایین -->
+  <div class="box" style="padding: 15px;">
     <div style="display: flex; gap: 15px; width: 100%;">
-        <div style="flex: 0 0 220px; display: flex; justify-content: center; align-items: flex-start;">
-          <div class="corner-box">
-            <div class="corner-top">عیب به اظهار مشتری</div>
-            <div class="corner-bottom">بکلایت شامل گارانتی نمی‌باشد</div>
-          </div>
+        
+        <!-- باکس عیب مشتری -->
+        <div style="display: flex; gap: 10px;">
+            <div class="corner-box">
+              <div class="corner-top">عیب به اظهار مشتری</div>
+              <div class="corner-bottom">{{ object.appearance_issue|default:"-" }}</div>
+            </div>
+
+            <!-- باکس شرطی گارانتی -->
+            {% if object.has_warranty %}
+            <div class="corner-box" style="border-style: dashed; background-color: #f0fdf4;">
+              <div class="corner-top">توضیحات گارانتی</div>
+              <div class="corner-bottom">{{ object.warranty_period|default:"-" }}</div>
+            </div>
+            {% endif %}
         </div>
 
-        <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
-          <h3>لطفا به نکات زیر توجه فرماید</h3>
-          <div>ارائه‌ای رسید به مراجعه و تحویل دستگاه ضروری است</div>
-          <div>ارائه کنند ای رسید به عنوان صاحب دستگاه شناخته می‌شود</div>
-          <div>رسیدهای فاقد مهر و امضا از درج اعتبار خارج است</div>
-          <div>در صورت تحویل دستگاه به صورت پنل خاموش، شرکت هیچ گونه مسئولیتی نسبت به سلامت دستگاه ندارد</div>
+        <!-- ستون نکات -->
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
+          <h3>لطفا به نکات زیر توجه فرمایید</h3>
+          <div>ارائه این رسید جهت تحویل دستگاه ضروری است.</div>
+          <div>ارائه کننده این رسید به عنوان صاحب دستگاه شناخته می‌شود.</div>
+          <div>رسیدهای فاقد مهر و امضا فاقد اعتبار است.</div>
+          <div>در صورت تحویل دستگاه به صورت پنل خاموش، شرکت هیچ گونه مسئولیتی نسبت به سلامت دستگاه ندارد.</div>
         </div>
 
-        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 10px; font-size: 13px;background-color: #ffffff;">
+        <!-- ستون امضاها -->
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 10px; font-size: 13px;">
           <div>مدت اعتبار این قبض دو ماه می‌باشد، بعد از انقضا این شرکت هیچ‌گونه مسئولیتی در قبال دستگاه ندارد.</div>
           <div>در صورت عدم وجود قطعات یدکی، این شرکت هیچ‌گونه مسئولیتی در قبال دستگاه ندارد.</div>
           <div style="margin-top: 30px; font-weight: bold; text-align: center; font-size: 15px;">

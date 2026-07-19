@@ -92,7 +92,6 @@
       font-size: 13px;
     }
 
-    /* استایل باکس‌های مربعی پایین */
     .corner-box {
       width: 220px;
       height: 120px;
@@ -110,6 +109,8 @@
       text-align: center;
       font-size: 14px;
       color: #111827;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
     }
 
     .corner-bottom {
@@ -117,6 +118,7 @@
       text-align: center;
       color: #374151;
       word-wrap: break-word;
+      padding-top: 5px;
     }
 
     h3 {
@@ -183,27 +185,28 @@
     </div>
   </div>
 
-  <!-- بخش باکس‌های پایین -->
   <div class="box" style="padding: 15px;">
     <div style="display: flex; gap: 15px; width: 100%;">
         
-        <!-- باکس عیب مشتری -->
         <div style="display: flex; gap: 10px;">
+            <!-- باکس عیب مشتری -->
             <div class="corner-box">
               <div class="corner-top">عیب به اظهار مشتری</div>
               <div class="corner-bottom">{{ object.appearance_issue|default:"-" }}</div>
             </div>
 
-            <!-- باکس شرطی گارانتی -->
+            <!-- باکس توضیحات گارانتی (فقط در صورت داشتن گارانتی نمایش داده می‌شود) -->
             {% if object.has_warranty %}
             <div class="corner-box" style="border-style: dashed; background-color: #f0fdf4;">
-              <div class="corner-top">توضیحات گارانتی</div>
-              <div class="corner-bottom">{{ object.warranty_period|default:"-" }}</div>
+              <div class="corner-top">توضیحات و گارانتی</div>
+              <div class="corner-bottom">
+                  <div style="font-weight: bold; margin-bottom: 5px;">{{ object.warranty_period|default:"-" }}</div>
+                  <div>{{ object.description|default:"توضیحاتی ثبت نشده" }}</div>
+              </div>
             </div>
             {% endif %}
         </div>
 
-        <!-- ستون نکات -->
         <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; font-size: 13px;">
           <h3>لطفا به نکات زیر توجه فرمایید</h3>
           <div>ارائه این رسید جهت تحویل دستگاه ضروری است.</div>
@@ -212,7 +215,6 @@
           <div>در صورت تحویل دستگاه به صورت پنل خاموش، شرکت هیچ گونه مسئولیتی نسبت به سلامت دستگاه ندارد.</div>
         </div>
 
-        <!-- ستون امضاها -->
         <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start; gap: 10px; font-size: 13px;">
           <div>مدت اعتبار این قبض دو ماه می‌باشد، بعد از انقضا این شرکت هیچ‌گونه مسئولیتی در قبال دستگاه ندارد.</div>
           <div>در صورت عدم وجود قطعات یدکی، این شرکت هیچ‌گونه مسئولیتی در قبال دستگاه ندارد.</div>

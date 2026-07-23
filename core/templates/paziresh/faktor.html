@@ -9,11 +9,12 @@
   <link rel="stylesheet" href="{% static 'css/faktor.css' %}">
 </head>
 <body>
-    <br>
-    <br>
-    <br>
+  <div class="top-spacer"></div>
+  <!-- محتوای اصلی --> <br>
+  <div class="box title">
   <!-- محتوای اصلی -->
   <div class="box title">
+    <img src="{% static 'img/favicon.png' %}" alt="لوگو حامی سرویس" class="faktor-logo">
     <h1>خدمات صوت و تصویر</h1>
     <h1>حامی سرویس</h1>
   </div>
@@ -66,11 +67,18 @@
 
   <div class="box" style="padding: 15px; display: flex; flex-direction: column; gap: 15px; align-items: flex-start;">
     <div style="display: flex; gap: 15px; width: 100%;">
-        <div style="flex: 0 0 220px; display: flex; justify-content: center; align-items: flex-start;">
+        <div class="corner-boxes-wrapper {% if object.has_warranty %}has-two{% endif %}">
           <div class="corner-box">
             <div class="corner-top">عیب به اظهار مشتری</div>
             <div class="corner-bottom">{{ object.appearance_issue }}</div>
           </div>
+
+          {% if object.has_warranty %}
+          <div class="corner-box">
+            <div class="corner-top">توضیحات گارانتی</div>
+            <div class="corner-bottom">{{ object.description }}</div>
+          </div>
+          {% endif %}
         </div>
 
         <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">

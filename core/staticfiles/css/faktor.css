@@ -8,6 +8,10 @@ body {
     margin: 0;
 }
 
+.top-spacer {
+    height: 60px;
+}
+
 .box {
     width: 100%;
     background-color: #ffffff;
@@ -20,12 +24,25 @@ body {
 }
 
 .box.title {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 120px;
+    min-height: 120px;
+    padding: 8px 15px;
+}
+
+.faktor-logo {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 55px;
+    width: auto;
+    max-width: 90px;
+    object-fit: contain;
 }
 
 .box.title h1 {
@@ -85,29 +102,45 @@ body {
     font-size: 13px;
 }
 
+.corner-boxes-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex: 0 0 220px;
+    min-width: 0;
+}
+
+.corner-boxes-wrapper.has-two {
+    flex: 0 0 340px;
+}
+
 .corner-box {
-    width: 220px;
+    flex: 1 1 0;
+    min-width: 0;
     height: 120px;
     border: 2px solid #111827;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 10px;
+    padding: 8px;
     box-sizing: border-box;
     background-color: #f9fafb;
+    overflow: hidden;
 }
 
 .corner-top {
     font-weight: bold;
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     color: #111827;
 }
 
 .corner-bottom {
-    font-size: 12px;
+    font-size: 11px;
     text-align: center;
     color: #374151;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 h3 {
@@ -115,8 +148,43 @@ h3 {
     font-size: 14px;
 }
 
+.notes-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notes-column .note-item {
+    font-size: 12px;
+}
+
+.terms-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    background-color: #ffffff;
+}
+
+.signature-line {
+    margin-top: 30px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 15px;
+}
+
+.footer-line {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
 /* تنظیم چاپ روی A5 افقی */
-/* سایز صفحه A5 افقی */
 @page {
     size: A5 landscape;
     margin: 5mm;
@@ -134,11 +202,33 @@ h3 {
         overflow: hidden;
     }
 
+    .top-spacer {
+        height: 0;
+    }
+
     .box {
         box-shadow: none;
         border-width: 1px;
         max-width: 100%;
         overflow: hidden;
+        margin-bottom: 3px;
+        padding: 6px 12px;
+    }
+
+    .box.title {
+        min-height: 70px;
+        padding: 4px 12px;
+    }
+
+    .box.title h1 {
+        font-size: 16px;
+        margin: 1px 0;
+    }
+
+    .faktor-logo {
+        height: 36px;
+        max-width: 65px;
+        right: 10px;
     }
 
     .info-section,
@@ -155,9 +245,52 @@ h3 {
         flex: 1;
     }
 
-    /* مقیاس نهایی (اگر باز هم جا نشد عدد کمتر کن) */
+    .corner-boxes-wrapper {
+        flex: 0 0 190px;
+    }
+
+    .corner-boxes-wrapper.has-two {
+        flex: 0 0 290px;
+    }
+
+    .corner-box {
+        height: 90px;
+        padding: 5px;
+    }
+
+    .corner-top {
+        font-size: 11px;
+    }
+
+    .corner-bottom {
+        font-size: 9px;
+    }
+
+    .notes-column {
+        gap: 3px;
+    }
+
+    .notes-column .note-item {
+        font-size: 9px;
+    }
+
+    .terms-column {
+        gap: 3px;
+        font-size: 10px;
+    }
+
+    .signature-line {
+        margin-top: 10px;
+        font-size: 12px;
+    }
+
+    .footer-line {
+        font-size: 10px;
+        margin-top: 2px;
+    }
+
     body {
-        transform: scale(0.92);
+        transform: scale(0.95);
         transform-origin: top center;
     }
 }

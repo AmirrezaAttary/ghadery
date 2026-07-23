@@ -5,6 +5,9 @@ from django.db.models import Q
 from .models import DeviceReception
 from .forms import DeviceReceptionForm,DeviceUpdateReceptionForm
 # Create your views here.
+from django.http import JsonResponse
+from django.views import View
+
 
 
 class PazireshListView(LoginRequiredMixin,ListView):
@@ -48,4 +51,28 @@ class PazireshFaktorDetail(DetailView):
     template_name = "paziresh/faktor.html"
     model = DeviceReception
     
-    
+
+class PazireshInquiryView(LoginRequiredMixin, View):
+    def get(self, request):
+        national_id = request.GET.get('national_id', '').strip()
+
+        if not national_id:
+            return JsonResponse({'found': False, 'message': 'کد ملی وارد نشده است.'})
+
+        reception = (
+            DeviceReception.objects
+            .filter(owner_national_id=national_id)
+            .order_by('-id')
+            .first()
+        )
+
+        if not reception:
+            return JsonResponse({'found': False, 'message': 'سابقه‌ای برای این کد ملی یافت نشد.'})
+
+        data = {
+            'owner_name': reception.owner_name,
+            'owner_phone': reception.owner_phone,
+            'owner_landline': reception.owner_landline or '',
+            'owner_address': reception.owner_address,
+        }
+        return JsonResponse({'found': True, 'data': data})

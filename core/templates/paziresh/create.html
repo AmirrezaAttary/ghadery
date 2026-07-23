@@ -54,6 +54,9 @@
         <label class="form-label">
             کد ملی
             {{ form.owner_national_id }}
+            <div class="national-id-group">
+                <button type="button" class="form-btn form-btn-outline" id="inquiry-btn">استعلام</button>
+            </div>
         </label>
 
         <label class="form-label">
@@ -124,6 +127,49 @@
 </form>
 
 <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const inquiryBtn = document.getElementById('inquiry-btn');
+    const nationalIdInput = document.getElementById('id_owner_national_id');
+
+    inquiryBtn.addEventListener('click', function () {
+        const nationalId = nationalIdInput.value.trim();
+
+        if (!nationalId) {
+            Toastify({ text: "لطفاً کد ملی را وارد کنید.", backgroundColor: "#e74c3c" }).showToast();
+            return;
+        }
+
+        inquiryBtn.disabled = true;
+        inquiryBtn.textContent = 'در حال بررسی...';
+
+        fetch(`{% url 'paziresh:paziresh-inquiry' %}?national_id=${encodeURIComponent(nationalId)}`, {
+            method: 'GET',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(res => res.json())
+        .then(res => {
+            if (res.found) {
+                document.getElementById('id_owner_name').value = res.data.owner_name;
+                document.getElementById('id_owner_phone').value = res.data.owner_phone;
+                document.getElementById('id_owner_landline').value = res.data.owner_landline;
+                document.getElementById('id_owner_address').value = res.data.owner_address;
+
+                Toastify({ text: "اطلاعات مالک با موفقیت بارگذاری شد.", backgroundColor: "#2ecc71" }).showToast();
+            } else {
+                Toastify({ text: res.message, backgroundColor: "#e67e22" }).showToast();
+            }
+        })
+        .catch(() => {
+            Toastify({ text: "خطا در ارتباط با سرور.", backgroundColor: "#e74c3c" }).showToast();
+        })
+        .finally(() => {
+            inquiryBtn.disabled = false;
+            inquiryBtn.textContent = 'استعلام';
+        });
+    });
+});
+</script>
 {% include 'messages.html' %}
 </body>
 </html>

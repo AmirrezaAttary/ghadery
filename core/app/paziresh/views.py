@@ -2,8 +2,8 @@ from django.views.generic import ListView,CreateView,UpdateView,DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from .models import DeviceReception
-from .forms import DeviceReceptionForm,DeviceUpdateReceptionForm
+from .models import DeviceReception, Warranty
+from .forms import DeviceReceptionForm, DeviceUpdateReceptionForm, WarrantyForm
 # Create your views here.
 from django.http import JsonResponse
 from django.views import View
@@ -76,3 +76,51 @@ class PazireshInquiryView(LoginRequiredMixin, View):
             'owner_address': reception.owner_address,
         }
         return JsonResponse({'found': True, 'data': data})
+
+
+
+
+
+
+class WarrantyListView(LoginRequiredMixin, ListView):
+    template_name = "paziresh/warranty_list.html"
+    model = Warranty
+    paginate_by = 20
+
+    def get_queryset(self):
+        queryset = Warranty.objects.select_related('device').all()
+        search_q = self.request.GET.get('q')
+        if search_q:
+            queryset = queryset.filter(
+                Q(id__icontains=search_q) |
+                Q(device__device_name__icontains=search_q) |
+                Q(device__owner_name__icontains=search_q) |
+                Q(device__owner_national_id__icontains=search_q) |
+                Q(device__owner_phone__icontains=search_q)
+            )
+        return queryset
+
+
+class WarrantyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    template_name = "paziresh/warranty_create.html"
+    model = Warranty
+    form_class = WarrantyForm
+    success_url = "/paziresh/warranty/list/"
+    success_message = "گارانتی با موفقیت ثبت شد."
+
+    def form_valid(self, form):
+        form.instance.issued_by = self.request.user
+        return super().form_valid(form)
+
+
+class WarrantyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    template_name = "paziresh/warranty_create.html"
+    model = Warranty
+    form_class = WarrantyForm
+    success_url = "/paziresh/warranty/list/"
+    success_message = "گارانتی با موفقیت ویرایش شد."
+
+
+class WarrantyPrintDetail(LoginRequiredMixin, DetailView):
+    template_name = "paziresh/warranty_print.html"
+    model = Warranty

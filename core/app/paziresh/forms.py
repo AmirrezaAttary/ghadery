@@ -1,5 +1,6 @@
 from django import forms
-from .models import DeviceReception
+from django.db.models import Q
+from .models import DeviceReception, Warranty
 
 
 class DeviceReceptionForm(forms.ModelForm):
@@ -131,3 +132,43 @@ class DeviceUpdateReceptionForm(forms.ModelForm):
         # new fields
         self.fields['reception_type'].widget.attrs['class'] = 'form-radio'
         self.fields['delivery_type'].widget.attrs['class'] = 'form-radio'
+
+
+
+class WarrantyForm(forms.ModelForm):
+    class Meta:
+        model = Warranty
+        fields = ['device', 'description', 'start_date', 'end_date']
+        labels = {
+            'device': 'دستگاه (پذیرش)',
+            'description': 'توضیحات گارانتی',
+            'start_date': 'تاریخ شروع گارانتی',
+            'end_date': 'تاریخ پایان گارانتی',
+        }
+        widgets = {
+            'device': forms.Select(attrs={'class': 'form-input'}),
+            'description': forms.Textarea(attrs={'class': 'form-input', 'rows': 4}),
+            'start_date': forms.DateInput(attrs={'class': 'form-input', 'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'class': 'form-input', 'type': 'date'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # فقط دستگاه‌هایی که واقعاً گارانتی دارن و قبلاً گارانتی براشون ثبت نشده
+        queryset = DeviceReception.objects.filter(has_warranty=True).exclude(
+            warranties__isnull=False
+        )
+
+        # اگه در حالت ویرایش هستیم، دستگاه فعلی رو هم به لیست اضافه کن
+        # وگرنه چون قبلا گارانتی ثبت شده، از لیست حذف میشه و فرم خراب میشه
+        if self.instance and self.instance.pk:
+            queryset = DeviceReception.objects.filter(
+                Q(pk=self.instance.device_id) | Q(pk__in=queryset.values_list('pk', flat=True))
+            )
+
+        self.fields['device'].queryset = queryset.order_by('-id')
+        self.fields['device'].empty_label = "— انتخاب دستگاه —"
+
+        for field in ['description', 'start_date', 'end_date']:
+            self.fields[field].widget.attrs['class'] = 'form-input'

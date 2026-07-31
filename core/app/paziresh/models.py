@@ -84,3 +84,39 @@ class DeviceReception(models.Model):
     
     class Meta:
         ordering = ['-id']
+
+
+
+class Warranty(models.Model):
+    device = models.ForeignKey(
+        DeviceReception,
+        on_delete=models.CASCADE,
+        related_name="warranties",
+        verbose_name="دستگاه مربوطه"
+    )
+    description = models.TextField(blank=True, null=True, verbose_name="توضیحات گارانتی")
+    start_date = models.DateField(verbose_name="تاریخ شروع گارانتی")
+    end_date = models.DateField(verbose_name="تاریخ پایان گارانتی")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ثبت")
+    issued_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="warranties_issued",
+        verbose_name="صادر شده توسط"
+    )
+
+    def __str__(self):
+        return f"گارانتی #{self.id} - {self.device.device_name} ({self.device.owner_name})"
+
+    @property
+    def is_active(self):
+        from django.utils import timezone
+        today = timezone.now().date()
+        return self.start_date <= today <= self.end_date
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name = "گارانتی"
+        verbose_name_plural = "گارانتی‌ها"

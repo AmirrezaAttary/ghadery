@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import DeviceReception
+from .models import DeviceReception, Warranty
 
 
 @admin.register(DeviceReception)
@@ -37,3 +37,11 @@ class DeviceReceptionAdmin(admin.ModelAdmin):
     autocomplete_fields = ("created_by",)
     ordering = ("-id",)
     date_hierarchy = "entry_date"
+
+
+
+
+@admin.register(Warranty)
+class WarrantyAdmin(admin.ModelAdmin):
+    list_display = ['id', 'device', 'start_date', 'end_date', 'is_active']
+    search_fields = ['device__owner_name', 'device__device_name', 'device__owner_national_id']

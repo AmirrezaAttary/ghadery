@@ -1,0 +1,97 @@
+{% load static %}
+{% load jalali_tags %}
+<!doctype html>
+<html lang="fa">
+<head>
+  <meta charset="utf-8">
+  <title>لیست گارانتی‌ها</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/history.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+  <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
+</head>
+<body style="direction: rtl;">
+
+<div class="history-container">
+
+  <h1 class="form-title">لیست گارانتی‌ها</h1>
+
+  <div class="history-controls">
+    <div class="btn-group">
+      <a href="{% url 'paziresh:warranty-create' %}" class="form-btn form-btn-primary">ثبت گارانتی جدید</a>
+    </div>
+
+    <div class="search-box">
+      <input type="text" form="search" name="q" id="search-input" class="form-input search-input" placeholder="جستجو...">
+      <button type="submit" class="search__btn" form="search">جستجو</button>
+      <form id="search" action="."></form>
+    </div>
+  </div>
+
+  <table class="history-table">
+    <thead>
+    <tr>
+      <th>شماره گارانتی</th>
+      <th>مربوط به پذیرش</th>
+      <th>مالک دستگاه</th>
+      <th>نام دستگاه</th>
+      <th>شروع گارانتی</th>
+      <th>پایان گارانتی</th>
+      <th>وضعیت</th>
+      <th>عملیات</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for object in object_list %}
+            <tr>
+                <td>{{ object.id }}</td>
+                <td><a href="{% url 'paziresh:paziresh-update' object.device.id %}">{{ object.device.id }}</a></td>
+                <td>{{ object.device.owner_name }}</td>
+                <td>{{ object.device.device_name }}</td>
+                <td>{{ object.start_date|to_jalali:"%Y/%m/%d" }}</td>
+                <td>{{ object.end_date|to_jalali:"%Y/%m/%d" }}</td>
+                <td>
+                    {% if object.is_active %}
+                        <span style="color: #16a34a; font-weight: bold;">فعال</span>
+                    {% else %}
+                        <span style="color: #dc2626; font-weight: bold;">منقضی شده</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'paziresh:warranty-update' object.id %}">ویرایش</a> |
+                    <a href="{% url 'paziresh:warranty-print' object.id %}">پرینت</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <span class="page-info">
+      صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
+    </span>
+    <div class="page-links">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">قبلی</a>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <span class="current-page">{{ num }}</span>
+        {% else %}
+          <a href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">بعدی</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="history-actions">
+    <a href="{% url 'website:home' %}" class="form-btn btn-back" id="back-btn">بازگشت</a>
+  </div>
+
+  <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
+  {% include 'messages.html' %}
+</body>
+</html>

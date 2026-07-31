@@ -1,0 +1,37 @@
+{% load static %}
+<!doctype html>
+<html lang="fa">
+<head>
+  <meta charset="utf-8">
+  <title>ثبت گارانتی</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/history.css' %}">
+  <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
+</head>
+<body style="direction: rtl;">
+
+<div class="history-container" style="max-width: 600px;">
+  <h1 class="form-title">ثبت / ویرایش گارانتی</h1>
+
+  <form method="post" style="display: flex; flex-direction: column; gap: 15px;">
+    {% csrf_token %}
+    {% for field in form %}
+      <div>
+        <label class="search-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div style="color: #dc2626; font-size: 12px;">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="form-btn form-btn-primary">ثبت گارانتی</button>
+  </form>
+
+  <div class="history-actions">
+    <a href="{% url 'paziresh:warranty-list' %}" class="form-btn btn-back">بازگشت به لیست</a>
+  </div>
+
+  <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
+  {% include 'messages.html' %}
+</body>
+</html>

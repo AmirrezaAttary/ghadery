@@ -1,0 +1,74 @@
+{% load static %}
+{% load jalali_tags %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>برگ گارانتی</title>
+  <link rel="stylesheet" href="{% static 'css/faktor.css' %}">
+</head>
+<body>
+  <div class="top-spacer"></div>
+
+  <div class="box title">
+    <img src="{% static 'img/favicon.png' %}" alt="لوگو حامی سرویس" class="faktor-logo">
+    <h1>خدمات صوت و تصویر</h1>
+    <h1>حامی سرویس</h1>
+  </div>
+
+  <div class="box">
+    <div class="info-section">
+      <div class="column">
+        <div class="label">شماره گارانتی: {{ object.id }}</div>
+        <div class="subtext2">مربوط به پذیرش شماره: {{ object.device.id }}</div>
+      </div>
+      <div class="column">
+        <div class="label">تاریخ شروع گارانتی: {{ object.start_date|to_jalali:"%Y/%m/%d" }}</div>
+        <div class="label">تاریخ پایان گارانتی: {{ object.end_date|to_jalali:"%Y/%m/%d" }}</div>
+        <div class="subtext">
+          {% if object.is_active %}این گارانتی در حال حاضر معتبر است{% else %}این گارانتی منقضی شده است{% endif %}
+        </div>
+      </div>
+      <div class="column">
+        <div class="label">نام دستگاه: {{ object.device.device_name }}</div>
+        <div class="label">مدل: {{ object.device.device_model }}</div>
+        <div class="label">شماره سریال: {{ object.device.device_serial }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="contact-section">
+      <div class="contact-column">
+        <div class="contact-label">صاحب دستگاه: {{ object.device.owner_name }}</div>
+        <div class="contact-label">شماره تماس: {{ object.device.owner_phone }}</div>
+      </div>
+      <div class="contact-column">
+        <div class="contact-label">کد ملی: {{ object.device.owner_national_id }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box" style="padding: 15px;">
+    <h3>توضیحات گارانتی</h3>
+    <div style="font-size: 13px; margin-top: 8px; line-height: 1.6;">
+      {{ object.description|default:"—" }}
+    </div>
+  </div>
+
+  <div class="box" style="padding: 15px;">
+    <div style="font-size: 13px;">
+      این برگه صرفاً گواهی گارانتی قطعه/تعمیر انجام‌شده روی دستگاه فوق می‌باشد و می‌بایست هنگام مراجعه بعدی ارائه شود.
+    </div>
+    <div class="signature-line">
+      امضا پذیرش &nbsp;&nbsp; امضا مشتری
+    </div>
+  </div>
+
+  <div class="footer-line">
+        <div>سبزوار، خیابان طالقانی، نبش طالقانی ۸</div>
+        <div>شماره‌های تماس - 09151500816</div>
+  </div>
+</body>
+</html>

@@ -1,6 +1,8 @@
 from django import forms
 from django.db.models import Q
 from .models import DeviceReception, Warranty
+import jdatetime
+
 
 
 class DeviceReceptionForm(forms.ModelForm):
@@ -135,21 +137,36 @@ class DeviceUpdateReceptionForm(forms.ModelForm):
 
 
 
+
+
 class WarrantyForm(forms.ModelForm):
+    start_date = forms.CharField(
+        label="تاریخ شروع گارانتی",
+        widget=forms.TextInput(attrs={
+            'class': 'form-input jalali-datepicker',
+            'placeholder': '۱۴۰۳/۰۱/۰۱',
+            'autocomplete': 'off',
+        })
+    )
+    end_date = forms.CharField(
+        label="تاریخ پایان گارانتی",
+        widget=forms.TextInput(attrs={
+            'class': 'form-input jalali-datepicker',
+            'placeholder': '۱۴۰۳/۰۷/۰۱',
+            'autocomplete': 'off',
+        })
+    )
+
     class Meta:
         model = Warranty
         fields = ['device', 'description', 'start_date', 'end_date']
         labels = {
             'device': 'دستگاه (پذیرش)',
             'description': 'توضیحات گارانتی',
-            'start_date': 'تاریخ شروع گارانتی',
-            'end_date': 'تاریخ پایان گارانتی',
         }
         widgets = {
             'device': forms.Select(attrs={'class': 'form-input'}),
             'description': forms.Textarea(attrs={'class': 'form-input', 'rows': 4}),
-            'start_date': forms.DateInput(attrs={'class': 'form-input', 'type': 'date'}),
-            'end_date': forms.DateInput(attrs={'class': 'form-input', 'type': 'date'}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -160,8 +177,6 @@ class WarrantyForm(forms.ModelForm):
             warranties__isnull=False
         )
 
-        # اگه در حالت ویرایش هستیم، دستگاه فعلی رو هم به لیست اضافه کن
-        # وگرنه چون قبلا گارانتی ثبت شده، از لیست حذف میشه و فرم خراب میشه
         if self.instance and self.instance.pk:
             queryset = DeviceReception.objects.filter(
                 Q(pk=self.instance.device_id) | Q(pk__in=queryset.values_list('pk', flat=True))
@@ -170,5 +185,43 @@ class WarrantyForm(forms.ModelForm):
         self.fields['device'].queryset = queryset.order_by('-id')
         self.fields['device'].empty_label = "— انتخاب دستگاه —"
 
-        for field in ['description', 'start_date', 'end_date']:
-            self.fields[field].widget.attrs['class'] = 'form-input'
+        # موقع ویرایش، تاریخ‌های میلادی ذخیره‌شده رو به شمسی تبدیل کن تا توی فرم نمایش داده بشه
+        if self.instance and self.instance.pk:
+            if self.instance.start_date:
+                self.initial['start_date'] = jdatetime.date.fromgregorian(
+                    date=self.instance.start_date
+                ).strftime('%Y/%m/%d')
+            if self.instance.end_date:
+                self.initial['end_date'] = jdatetime.date.fromgregorian(
+                    date=self.instance.end_date
+                ).strftime('%Y/%m/%d')
+
+    @staticmethod
+    def _to_gregorian(value):
+        value = value.strip().replace('-', '/')
+        persian_digits = '۰۱۲۳۴۵۶۷۸۹'
+        english_digits = '0123456789'
+        value = value.translate(str.maketrans(persian_digits, english_digits))
+
+        parts = value.split('/')
+        if len(parts) != 3:
+            raise forms.ValidationError("فرمت تاریخ باید به صورت ۱۴۰۳/۰۱/۰۱ باشد.")
+        try:
+            y, m, d = (int(p) for p in parts)
+            return jdatetime.date(y, m, d).togregorian()
+        except ValueError:
+            raise forms.ValidationError("تاریخ وارد شده معتبر نیست.")
+
+    def clean_start_date(self):
+        return self._to_gregorian(self.cleaned_data['start_date'])
+
+    def clean_end_date(self):
+        return self._to_gregorian(self.cleaned_data['end_date'])
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start = cleaned_data.get('start_date')
+        end = cleaned_data.get('end_date')
+        if start and end and end < start:
+            raise forms.ValidationError("تاریخ پایان گارانتی نمی‌تواند قبل از تاریخ شروع باشد.")
+        return cleaned_data

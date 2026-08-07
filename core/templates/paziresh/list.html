@@ -1,98 +1,262 @@
+```html
 {% load static %}
+
 <!doctype html>
 <html lang="fa">
 <head>
-  <meta charset="utf-8">
-  <title>تاریخچه</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{% static 'css/history.css' %}">
-  <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
-  <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
+    <meta charset="utf-8">
+    <title>تاریخچه</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'css/history.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/toastify/toastify.css' %}">
 </head>
+
 <body style="direction: rtl;">
 
 <div class="history-container">
 
-  <h1 class="form-title">تاریخچه</h1>
+    <h1 class="form-title">تاریخچه</h1>
 
-  <!-- نوار کنترل -->
-  <div class="history-controls">
-    <div class="btn-group">
-      <button class="form-btn form-btn-primary">در حال تعمیر</button>
-      <button class="form-btn form-btn-primary">همه سفارش</button>
-      <button class="form-btn form-btn-primary">آماده تحویل</button>
-    </div>
+    <!-- نوار کنترل -->
+    <div class="history-controls">
 
-    <!-- بخش جستجو -->
-    <div class="search-box">
-      <input type="text" form="search" name="q" id="search-input" class="form-input search-input" placeholder="جستجو...">
-      <button type="submit" class="search__btn" form="search">جستجو</button>
-      <form id="search" action="."></form>
-    </div>
-  </div>
+        <div class="btn-group">
 
-  <!-- جدول تاریخچه -->
-  <table class="history-table">
-    <thead>
-    <tr>
-      <th>شماره پذیرش</th>
-      <th>فاکتور</th>
-      <th>مالک دستگاه</th>
-      <th>نام دستگاه</th>
-      <th>مدل دستگاه</th>
-      <th>کدملی</th>
-      <th>موبایل</th>
-      <th>وضعیت</th>
-    </tr>
-    </thead>
-    <tbody>
-        {% for object in object_list %}
-            <tr>
-                <td><a href="{% url 'paziresh:paziresh-update' object.id %}">{{ object.id }}--ویرایش</a></td>
-                <td><a href="{% url 'paziresh:paziresh-faktor' object.id %}">مشاهده</a></td>
-                <td>{{ object.owner_name }}</td>
-                <td>{{ object.device_name }}</td>
-                <td>{{ object.device_model }}</td>
-                <td>{{ object.owner_national_id }}</td>
-                <td>{{ object.owner_phone }}</td>
-                {% if object.is_ready %}
-                <td>آماده تحویل</td>
-                {% else %}
-                <td>در حال تعمیر</td>
+            <!-- همه سفارشات -->
+            <a href="?{% if request.GET.q %}q={{ request.GET.q }}{% endif %}"
+               class="form-btn form-btn-primary">
+                همه سفارش‌ها
+            </a>
+
+            <!-- در حال تعمیر -->
+            <a href="?status=repairing{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+               class="form-btn form-btn-primary">
+                در حال تعمیر
+            </a>
+
+            <!-- آماده تحویل -->
+            <a href="?status=ready{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+               class="form-btn form-btn-primary">
+                آماده تحویل
+            </a>
+
+            <!-- تحویل داده شده -->
+            <a href="?status=delivered{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+               class="form-btn form-btn-primary">
+                تحویل داده شده
+            </a>
+
+        </div>
+
+        <!-- بخش جستجو -->
+        <div class="search-box">
+
+            <form id="search" method="get" action=".">
+
+                {% if request.GET.status %}
+                    <input
+                        type="hidden"
+                        name="status"
+                        value="{{ request.GET.status }}"
+                    >
                 {% endif %}
-            </tr>
-        {% endfor %}
-    </tbody>
-  </table>
-  <!-- صفحه‌بندی -->
-  <div class="pagination">
-    <span class="page-info">
-      صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
-    </span>
-    <div class="page-links">
-      {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.is_ready %}&is_ready={{ request.GET.is_ready }}{% endif %}">قبلی</a>
-      {% endif %}
-      {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-          <span class="current-page">{{ num }}</span>
-        {% else %}
-          <a href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.is_ready %}&is_ready={{ request.GET.is_ready }}{% endif %}">{{ num }}</a>
-        {% endif %}
-      {% endfor %}
-      {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.is_ready %}&is_ready={{ request.GET.is_ready }}{% endif %}">بعدی</a>
-      {% endif %}
+
+                <input
+                    type="text"
+                    name="q"
+                    id="search-input"
+                    class="form-input search-input"
+                    placeholder="جستجو..."
+                    value="{{ request.GET.q|default:'' }}"
+                >
+
+                <button
+                    type="submit"
+                    class="search__btn">
+                    جستجو
+                </button>
+
+            </form>
+
+        </div>
+
     </div>
-  </div>
-  <!-- دکمه بازگشت -->
-  <div class="history-actions">
-    <a href="{% url 'website:home' %}" class="form-btn btn-back" style="text-align: center;" id="back-btn">بازگشت</a>
-  </div>
 
 
-  <script src="{% static 'vendor/toastify/toastify.js' %}"></script>
-  {% include 'messages.html' %}
-  <script src="{% static 'js/list.js' %}"></script>
+    <!-- جدول تاریخچه -->
+    <table class="history-table">
+
+        <thead>
+        <tr>
+            <th>شماره پذیرش</th>
+            <th>فاکتور</th>
+            <th>مالک دستگاه</th>
+            <th>نام دستگاه</th>
+            <th>مدل دستگاه</th>
+            <th>کدملی</th>
+            <th>موبایل</th>
+            <th>وضعیت</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for object in object_list %}
+
+            <tr>
+
+                <td>
+                    <a href="{% url 'paziresh:paziresh-update' object.id %}">
+                        {{ object.id }} - ویرایش
+                    </a>
+                </td>
+
+                <td>
+                    <a href="{% url 'paziresh:paziresh-faktor' object.id %}">
+                        مشاهده
+                    </a>
+                </td>
+
+                <td>
+                    {{ object.owner_name }}
+                </td>
+
+                <td>
+                    {{ object.device_name }}
+                </td>
+
+                <td>
+                    {{ object.device_model }}
+                </td>
+
+                <td>
+                    {{ object.owner_national_id }}
+                </td>
+
+                <td>
+                    {{ object.owner_phone }}
+                </td>
+
+                <td>
+
+                    {% if object.status == "repairing" %}
+
+                        <span class="status repairing">
+                            در حال تعمیر
+                        </span>
+
+                    {% elif object.status == "ready" %}
+
+                        <span class="status ready">
+                            آماده تحویل
+                        </span>
+
+                    {% elif object.status == "delivered" %}
+
+                        <span class="status delivered">
+                            تحویل داده شده
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+                <td colspan="8">
+                    سفارشی پیدا نشد.
+                </td>
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+    <!-- صفحه‌بندی -->
+    <div class="pagination">
+
+        <span class="page-info">
+            صفحه {{ page_obj.number }}
+            از
+            {{ page_obj.paginator.num_pages }}
+        </span>
+
+        <div class="page-links">
+
+            {% if page_obj.has_previous %}
+
+                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+                    قبلی
+                </a>
+
+            {% endif %}
+
+
+            {% for num in page_obj.paginator.page_range %}
+
+                {% if page_obj.number == num %}
+
+                    <span class="current-page">
+                        {{ num }}
+                    </span>
+
+                {% else %}
+
+                    <a href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+                        {{ num }}
+                    </a>
+
+                {% endif %}
+
+            {% endfor %}
+
+
+            {% if page_obj.has_next %}
+
+                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}">
+                    بعدی
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- دکمه بازگشت -->
+    <div class="history-actions">
+
+        <a
+            href="{% url 'website:home' %}"
+            class="form-btn btn-back"
+            style="text-align: center;"
+            id="back-btn">
+
+            بازگشت
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<script src="{% static 'vendor/toastify/toastify.js' %}"></script>
+
+{% include 'messages.html' %}
+
+<script src="{% static 'js/list.js' %}"></script>
+
 </body>
 </html>
+```

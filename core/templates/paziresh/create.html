@@ -12,11 +12,14 @@
 
 <form method="post" class="accept-form">
     {% csrf_token %}
-    <h1 class="form-title">فرم پذیرش</h1>
+
+    <h1 class="form-title">ثبت پذیرش دستگاه</h1>
 
     <!-- مشخصات دستگاه -->
     <h2 class="section-title">مشخصات دستگاه</h2>
+
     <div class="form-grid">
+
         <label class="form-label">
             نام دستگاه
             {{ form.device_name }}
@@ -36,11 +39,15 @@
             سریال دستگاه
             {{ form.device_serial }}
         </label>
+
     </div>
+
 
     <!-- مشخصات مالک -->
     <h2 class="section-title">مشخصات مالک</h2>
+
     <div class="form-grid">
+
         <label class="form-label">
             نام مالک
             {{ form.owner_name }}
@@ -54,8 +61,14 @@
         <label class="form-label">
             کد ملی
             {{ form.owner_national_id }}
+
             <div class="national-id-group">
-                <button type="button" class="form-btn form-btn-outline" id="inquiry-btn">استعلام</button>
+                <button
+                    type="button"
+                    class="form-btn form-btn-outline"
+                    id="inquiry-btn">
+                    استعلام
+                </button>
             </div>
         </label>
 
@@ -64,26 +77,42 @@
             {{ form.owner_landline }}
         </label>
 
-        <label class="form-label" style="grid-column: 1 / -1;">
+        <label
+            class="form-label"
+            style="grid-column: 1 / -1;"
+        >
             آدرس
             {{ form.owner_address }}
         </label>
+
     </div>
+
 
     <!-- مشخصات مشکل -->
     <h2 class="section-title">مشخصات مشکل</h2>
+
     <div class="form-grid">
-        <label class="form-label" style="grid-column: 1 / -1;">
+
+        <label
+            class="form-label"
+            style="grid-column: 1 / -1;"
+        >
             ایرادهای ظاهری
             {{ form.appearance_issue }}
         </label>
 
-        <label class="form-label" style="grid-column: 1 / -1;">
+        <label
+            class="form-label"
+            style="grid-column: 1 / -1;"
+        >
             توضیحات
             {{ form.description }}
         </label>
 
-        <label class="form-label" style="grid-column: 1 / -1;">
+        <label
+            class="form-label"
+            style="grid-column: 1 / -1;"
+        >
             نظر تکنسین
             {{ form.technician_note }}
         </label>
@@ -93,36 +122,71 @@
             {{ form.cost }}
         </label>
 
-        <div class="form-radio-group" style="grid-column: 1 / -1;">
+
+        <div
+            class="form-radio-group"
+            style="grid-column: 1 / -1;"
+        >
             آیا گارانتی دارد؟
+
             {{ form.has_warranty }}
         </div>
+
 
         <label class="form-label">
             مدت گارانتی (ماه)
             {{ form.warranty_period }}
         </label>
 
-        <input type="hidden" name="created_by" value="{{ request.user.id }}">
     </div>
+
 
     <!-- نوع پذیرش و تحویل -->
     <h2 class="section-title">نوع پذیرش و تحویل</h2>
+
     <div class="form-grid">
+
         <div class="form-radio-group">
             نوع پذیرش:
+
             {{ form.reception_type }}
         </div>
 
         <div class="form-radio-group">
             نوع تحویل:
+
             {{ form.delivery_type }}
         </div>
+
     </div>
 
+
+    <!-- وضعیت اولیه -->
+    <div class="status-info">
+        وضعیت اولیه دستگاه:
+
+        <strong>
+            در حال تعمیر
+        </strong>
+    </div>
+
+
     <!-- دکمه‌ها -->
-    <button type="submit" class="form-btn form-btn-primary" id="save-btn">ذخیره</button>
-    <a href="{% url 'website:home' %}" class="form-btn form-btn-outline" style="text-align: center;" id="back-btn">بازگشت</a>
+
+    <button
+        type="submit"
+        class="form-btn form-btn-primary"
+        id="save-btn">
+        ذخیره
+    </button>
+
+    <a
+        href="{% url 'website:home' %}"
+        class="form-btn form-btn-outline"
+        style="text-align: center;"
+        id="back-btn">
+        بازگشت
+    </a>
 
 </form>
 

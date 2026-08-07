@@ -18,7 +18,7 @@
       <a href="/admin/" class="btn">ادمین کلی</a>
       {% endif %}
       <a href="{% url 'paziresh:paziresh-create' %}" class="btn">پذیرش</a>
-      <a href="send_sms.html" class="btn">ارسال پیامک</a>
+      <a href="{% url 'sms:dashboard' %}" class="btn">ارسال پیامک</a>
       <a href="{% url 'paziresh:paziresh-list' %}" class="btn">تاریخچه</a>
       <a href="{% url 'paziresh:warranty-list' %}" class="btn">لیست گارانتی‌ها</a>
       <a href="{% url 'website:smsnumber_list' %}" class="btn">تنظیمات اس ام اس</a>

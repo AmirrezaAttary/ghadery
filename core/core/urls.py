@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('app.website.urls')),
     path('accounts/', include('app.accounts.urls')),
     path('paziresh/', include('app.paziresh.urls')),
+    path('sms/', include('app.sms.urls')),
 ]

@@ -1,0 +1,104 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>ارسال پیامک</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/history.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div
+    class="history-container"
+    style="max-width: 700px;"
+>
+
+    <h1 class="form-title">
+        ارسال پیامک
+    </h1>
+
+
+    <form
+        method="post"
+        style="
+            display:flex;
+            flex-direction:column;
+            gap:20px;
+        "
+    >
+
+        {% csrf_token %}
+
+
+        {% for field in form %}
+
+            <label class="form-label">
+
+                {{ field.label }}
+
+                {{ field }}
+
+                {% if field.errors %}
+
+                    <div
+                        style="
+                            color:#dc2626;
+                            font-size:13px;
+                        "
+                    >
+                        {{ field.errors }}
+                    </div>
+
+                {% endif %}
+
+            </label>
+
+        {% endfor %}
+
+
+        <button
+            type="submit"
+            class="form-btn form-btn-primary"
+        >
+            ارسال پیامک
+        </button>
+
+    </form>
+
+
+    <div class="history-actions">
+
+        <a
+            href="{% url 'sms:dashboard' %}"
+            class="form-btn btn-back"
+        >
+            بازگشت
+        </a>
+
+    </div>
+
+</div>
+
+
+{% include 'messages.html' %}
+
+</body>
+
+</html>
+

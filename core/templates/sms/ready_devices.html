@@ -1,0 +1,190 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>دستگاه‌های آماده تحویل</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/history.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="history-container">
+
+    <h1 class="form-title">
+        دستگاه‌های آماده تحویل
+    </h1>
+
+
+    <table class="history-table">
+
+        <thead>
+
+        <tr>
+
+            <th>
+                پذیرش
+            </th>
+
+            <th>
+                مالک
+            </th>
+
+            <th>
+                دستگاه
+            </th>
+
+            <th>
+                مدل
+            </th>
+
+            <th>
+                موبایل
+            </th>
+
+            <th>
+                عملیات
+            </th>
+
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        {% for device in devices %}
+
+            <tr>
+
+                <td>
+                    {{ device.id }}
+                </td>
+
+                <td>
+                    {{ device.owner_name }}
+                </td>
+
+                <td>
+                    {{ device.device_name }}
+                </td>
+
+                <td>
+                    {{ device.device_model }}
+                </td>
+
+                <td dir="ltr">
+                    {{ device.owner_phone }}
+                </td>
+
+                <td>
+
+                    <form
+                        method="post"
+                        action="{% url 'sms:send-ready' device.id %}"
+                        style="display:inline;"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="form-btn form-btn-primary"
+                        >
+                            ارسال پیام
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    style="text-align:center;"
+                >
+                    دستگاه آماده تحویلی وجود ندارد.
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+    <div class="pagination">
+
+        {% if page_obj.has_previous %}
+
+            <a
+                href="?page={{ page_obj.previous_page_number }}"
+            >
+                قبلی
+            </a>
+
+        {% endif %}
+
+
+        <span>
+            صفحه {{ page_obj.number }}
+            از
+            {{ page_obj.paginator.num_pages }}
+        </span>
+
+
+        {% if page_obj.has_next %}
+
+            <a
+                href="?page={{ page_obj.next_page_number }}"
+            >
+                بعدی
+            </a>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="history-actions">
+
+        <a
+            href="{% url 'sms:dashboard' %}"
+            class="form-btn btn-back"
+        >
+            بازگشت
+        </a>
+
+    </div>
+
+</div>
+
+
+{% include 'messages.html' %}
+
+</body>
+
+</html>
+

@@ -1,0 +1,109 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>ارسال گروهی پیامک</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/history.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div
+    class="history-container"
+    style="max-width: 800px;"
+>
+
+    <h1 class="form-title">
+        ارسال گروهی پیامک
+    </h1>
+
+
+    <form method="post">
+
+        {% csrf_token %}
+
+
+        {% for field in form %}
+
+            <div
+                style="
+                    margin-bottom:20px;
+                "
+            >
+
+                <label class="form-label">
+
+                    {{ field.label }}
+
+                </label>
+
+
+                {{ field }}
+
+
+                {% if field.errors %}
+
+                    <div
+                        style="
+                            color:#dc2626;
+                            font-size:13px;
+                            margin-top:5px;
+                        "
+                    >
+
+                        {{ field.errors }}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+
+        <button
+            type="submit"
+            class="form-btn form-btn-primary"
+        >
+            ارسال گروهی
+        </button>
+
+    </form>
+
+
+    <div class="history-actions">
+
+        <a
+            href="{% url 'sms:dashboard' %}"
+            class="form-btn btn-back"
+        >
+            بازگشت
+        </a>
+
+    </div>
+
+</div>
+
+
+{% include 'messages.html' %}
+
+</body>
+
+</html>

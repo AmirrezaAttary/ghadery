@@ -1,0 +1,145 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>مدیریت پیامک</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/history.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="history-container">
+
+    <h1 class="form-title">
+        مدیریت پیامک
+    </h1>
+
+
+    <div class="history-controls">
+
+        <div class="btn-group">
+
+            <a
+                href="{% url 'sms:ready-devices' %}"
+                class="form-btn form-btn-primary"
+            >
+                دستگاه‌های آماده تحویل
+            </a>
+
+
+            <a
+                href="{% url 'sms:send-single' %}"
+                class="form-btn form-btn-primary"
+            >
+                ارسال پیام تکی
+            </a>
+
+
+            <a
+                href="{% url 'sms:send-bulk' %}"
+                class="form-btn form-btn-primary"
+            >
+                ارسال گروهی
+            </a>
+
+
+            <a
+                href="{% url 'sms:logs' %}"
+                class="form-btn form-btn-outline"
+            >
+                گزارش ارسال‌ها
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-grid">
+
+        <div class="history-card">
+
+            <h3>
+                آماده تحویل
+            </h3>
+
+            <strong>
+                {{ ready_count }}
+            </strong>
+
+            <p>
+                دستگاه آماده تحویل
+            </p>
+
+        </div>
+
+
+        <div class="history-card">
+
+            <h3>
+                شماره‌های ثبت شده
+            </h3>
+
+            <strong>
+                {{ phone_count }}
+            </strong>
+
+            <p>
+                شماره برای ارسال گروهی
+            </p>
+
+        </div>
+
+
+        <div class="history-card">
+
+            <h3>
+                کل پیامک‌ها
+            </h3>
+
+            <strong>
+                {{ sms_count }}
+            </strong>
+
+            <p>
+                پیام ثبت شده
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="history-actions">
+
+        <a
+            href="{% url 'website:home' %}"
+            class="form-btn btn-back"
+        >
+            بازگشت
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
+

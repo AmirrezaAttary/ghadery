@@ -1,0 +1,187 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>گزارش پیامک‌ها</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/history.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="history-container">
+
+    <h1 class="form-title">
+        گزارش پیامک‌ها
+    </h1>
+
+
+    <table class="history-table">
+
+        <thead>
+
+        <tr>
+
+            <th>
+                گیرنده
+            </th>
+
+            <th>
+                متن
+            </th>
+
+            <th>
+                نوع
+            </th>
+
+            <th>
+                وضعیت
+            </th>
+
+            <th>
+                ارسال کننده
+            </th>
+
+            <th>
+                تاریخ
+            </th>
+
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        {% for log in logs %}
+
+            <tr>
+
+                <td dir="ltr">
+                    {{ log.receptor }}
+                </td>
+
+                <td>
+                    {{ log.message }}
+                </td>
+
+                <td>
+                    {{ log.get_send_type_display }}
+                </td>
+
+                <td>
+
+                    {% if log.status == "success" %}
+
+                        <span style="color:green;">
+                            موفق
+                        </span>
+
+                    {% elif log.status == "failed" %}
+
+                        <span style="color:red;">
+                            ناموفق
+                        </span>
+
+                    {% else %}
+
+                        در انتظار
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ log.sent_by }}
+                </td>
+
+                <td>
+                    {{ log.created_at|date:"Y/m/d H:i" }}
+                </td>
+
+            </tr>
+
+        {% empty %}
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    style="text-align:center;"
+                >
+                    هنوز پیامکی ارسال نشده است.
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+
+    <div class="pagination">
+
+        {% if page_obj.has_previous %}
+
+            <a
+                href="?page={{ page_obj.previous_page_number }}"
+            >
+                قبلی
+            </a>
+
+        {% endif %}
+
+
+        <span>
+            صفحه {{ page_obj.number }}
+            از {{ page_obj.paginator.num_pages }}
+        </span>
+
+
+        {% if page_obj.has_next %}
+
+            <a
+                href="?page={{ page_obj.next_page_number }}"
+            >
+                بعدی
+            </a>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="history-actions">
+
+        <a
+            href="{% url 'sms:dashboard' %}"
+            class="form-btn btn-back"
+        >
+            بازگشت
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
+
